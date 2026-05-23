@@ -17,7 +17,7 @@ These notes help AI agents work effectively in this Android/Kotlin codebase by c
   - `./gradlew assembleNightly` → signed nightly APK.
 - Tests:
   - Unit: `./gradlew test` (Android resources enabled).
-  - Instrumented: `./gradlew connectedAndroidTest` (runner `io.github.landwarderer.futon.HiltTestRunner`).
+  - Instrumented: `./gradlew connectedAndroidTest` (runner `io.github.landwarderer.mangablaze.HiltTestRunner`).
 - Lint: strict; certain rules disabled (e.g., `MissingTranslation`, `PrivateResource`).
 
 ## CI/CD & Signing

@@ -1,0 +1,141 @@
+name: Sync Upstream
+
+# This workflow checks for new changes in the original Futon repository
+# and creates a pull request to merge them into your MangaBlaze fork.
+#
+# REQUIRED SETUP:
+# 1. Go to GitHub Settings -> Developer settings -> Personal access tokens -> Tokens (classic)
+# 2. Generate a new token with 'repo' and 'workflow' scopes
+# 3. In your MangaBlaze repo, go to Settings -> Secrets and variables -> Actions
+# 4. Add a new repository secret named PAT with your token value
+
+on:
+  schedule:
+    # Every Monday at 02:00 UTC
+    - cron: '0 2 * * 1'
+  workflow_dispatch:
+    inputs:
+      upstream_branch:
+        description: 'Upstream branch to sync from'
+        required: true
+        default: 'devel'
+        type: string
+
+env:
+  UPSTREAM_URL: https://github.com/AppFuton/Futon.git
+  UPSTREAM_BRANCH: ${{ github.event.inputs.upstream_branch || 'devel' }}
+  DOWNSTREAM_BRANCH: devel
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout your fork
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT || github.token }}
+          fetch-depth: 0
+          ref: ${{ env.DOWNSTREAM_BRANCH }}
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Add upstream remote
+        run: git remote add upstream ${{ env.UPSTREAM_URL }}
+
+      - name: Fetch upstream
+        run: git fetch upstream ${{ env.UPSTREAM_BRANCH }}
+
+      - name: Check for new commits
+        id: check
+        run: |
+          LOCAL=$(git rev-parse HEAD)
+          REMOTE=$(git rev-parse upstream/${{ env.UPSTREAM_BRANCH }})
+          if [ "$LOCAL" = "$REMOTE" ]; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No new upstream commits. Already up to date."
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "New upstream commits found."
+          fi
+
+      - name: Create sync branch
+        if: steps.check.outputs.has_changes == 'true'
+        run: |
+          SYNC_BRANCH="sync/upstream-$(date +%Y%m%d-%H%M%S)"
+          echo "SYNC_BRANCH=$SYNC_BRANCH" >> $GITHUB_ENV
+          git checkout -b "$SYNC_BRANCH"
+          
+          # Attempt merge. If it fails, we still push the branch so conflicts can be resolved manually.
+          if git merge upstream/${{ env.UPSTREAM_BRANCH }} --no-edit; then
+            echo "merge_status=clean" >> $GITHUB_ENV
+          else
+            echo "merge_status=conflict" >> $GITHUB_ENV
+            # Abort the failed merge and do a squash-like approach:
+            # Actually, for white-label forks we WANT to keep the merge commit with conflicts
+            # so they can be resolved in the PR. Let's commit the merge with conflicts marked.
+            git add -A
+            git commit -m "Merge upstream/${{ env.UPSTREAM_BRANCH }} (conflicts present)" || true
+          fi
+          
+          git push origin "$SYNC_BRANCH"
+
+      - name: Create Pull Request (no conflicts)
+        if: steps.check.outputs.has_changes == 'true' && env.merge_status == 'clean'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.PAT || github.token }}
+          branch: ${{ env.SYNC_BRANCH }}
+          base: ${{ env.DOWNSTREAM_BRANCH }}
+          title: '🔁 Sync upstream Futon changes ($(date +%Y-%m-%d))'
+          body: |
+            Automated upstream sync from `AppFuton/Futon@${{ env.UPSTREAM_BRANCH }}`.
+
+            ✅ This merge applied cleanly with no conflicts.
+
+            **Before merging:**
+            - [ ] Review the changes
+            - [ ] Run `./gradlew assembleDebug` to verify the build
+            - [ ] Check that white-label strings (MangaBlaze) weren't overwritten
+          draft: false
+
+      - name: Create Pull Request (with conflicts)
+        if: steps.check.outputs.has_changes == 'true' && env.merge_status == 'conflict'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.PAT || github.token }}
+          branch: ${{ env.SYNC_BRANCH }}
+          base: ${{ env.DOWNSTREAM_BRANCH }}
+          title: '⚠️ Sync upstream Futon changes ($(date +%Y-%m-%d)) — CONFLICTS'
+          body: |
+            Automated upstream sync from `AppFuton/Futon@${{ env.UPSTREAM_BRANCH }}`.
+
+            ⚠️ **Merge conflicts detected.** This is expected for a white-label fork since files were renamed (package, classes, themes, strings).
+
+            **How to resolve:**
+            1. Fetch this branch locally: `git fetch origin && git checkout ${{ env.SYNC_BRANCH }}`
+            2. Open conflicted files and choose the correct side (keep MangaBlaze renames, apply upstream logic changes)
+            3. Run `./gradlew assembleDebug` to verify
+            4. Commit and push
+          draft: true
+
+      - name: Summary
+        if: steps.check.outputs.has_changes == 'true'
+        run: |
+          echo "## Sync Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- Upstream: AppFuton/Futon@${{ env.UPSTREAM_BRANCH }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Sync branch: ${{ env.SYNC_BRANCH }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Merge status: ${{ env.merge_status }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Base branch: ${{ env.DOWNSTREAM_BRANCH }}" >> $GITHUB_STEP_SUMMARY
+
+      - name: No changes summary
+        if: steps.check.outputs.has_changes == 'false'
+        run: |
+          echo "## Sync Summary" >> $GITHUB_STEP_SUMMARY
+          echo "No new commits found. Already up to date with upstream." >> $GITHUB_STEP_SUMMARY

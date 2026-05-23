@@ -8,8 +8,8 @@ import eu.kanade.tachiyomi.source.model.MangasPage
 import eu.kanade.tachiyomi.source.model.Page
 import eu.kanade.tachiyomi.source.model.SChapter
 import eu.kanade.tachiyomi.source.model.SManga
-import io.github.landwarderer.futon.mihon.model.contentSource
-import io.github.landwarderer.futon.mihon.parsers.model.ContentSource
+import io.github.landwarderer.mangablaze.mihon.model.contentSource
+import io.github.landwarderer.mangablaze.mihon.parsers.model.ContentSource
 import okhttp3.Headers
 import okhttp3.OkHttpClient
 import okhttp3.Request

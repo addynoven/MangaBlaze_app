@@ -1,6 +1,6 @@
 package eu.kanade.tachiyomi
 
-import io.github.landwarderer.futon.BuildConfig
+import io.github.landwarderer.mangablaze.BuildConfig
 
 /**
  * Stub class for Mihon extensions that reference AppInfo.
