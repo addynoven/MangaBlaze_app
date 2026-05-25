@@ -29,7 +29,7 @@ export default class HentaiFoxExtension extends BaseSource {
           id,
           title: titleLink.text().trim(),
           cover: thumb.find('.inner_thumb img').attr('data-src') || '/images/placeholder.png',
-          status: 'completed', // These are usually complete galleries
+          status: 'completed',
         });
       }
     });
@@ -48,7 +48,8 @@ export default class HentaiFoxExtension extends BaseSource {
 
     const genres: string[] = [];
     $('.tags .tag_btn').each((_, el) => {
-        genres.push($(el).text().split(' ').slice(0, -1).join(' ').trim());
+        const tag = $(el).text().replace(/\d+$/, '').trim();
+        if (tag) genres.push(tag);
     });
 
     this.reportSuccess(Date.now() - start);
@@ -57,9 +58,9 @@ export default class HentaiFoxExtension extends BaseSource {
       title,
       cover: $('.cover img').attr('src') || '/images/placeholder.png',
       description: $('meta[name="description"]').attr('content') || '',
-      authors: $('.artists .tag_btn').map((_, el) => $(el).text().split(' ').slice(0, -1).join(' ').trim()).get(),
+      authors: $('.artists .tag_btn').map((_, el) => $(el).text().replace(/\d+$/, '').trim()).get(),
       artists: [],
-      genres: genres.filter(Boolean),
+      genres: Array.from(new Set(genres)),
       altTitles: [],
     };
   }
@@ -70,14 +71,18 @@ export default class HentaiFoxExtension extends BaseSource {
     const $ = await this.fetchHTML(url);
     
     const title = $('h1').first().text().trim();
+    const pageCountStr = $('#load_pages').val() as string || $('.i_text.pages').text().match(/Pages:\s*(\d+)/)?.[1] || '0';
     
     this.reportSuccess(Date.now() - start);
+    
+    // Only return exactly one chapter for the specific gallery requested
+    // This prevents "Related Galleries" from being treated as chapters
     return [{
-      id: mangaId, // Use mangaId as chapterId for single-chapter sources
+      id: mangaId,
       chapterNumber: '1',
       title: title || 'Full Gallery',
       language: 'en',
-      pages: parseInt($('#load_pages').val() as string || '0'),
+      pages: parseInt(pageCountStr),
       publishedAt: new Date().toISOString(),
       readableAt: new Date().toISOString(),
       externalUrl: null,
@@ -87,26 +92,27 @@ export default class HentaiFoxExtension extends BaseSource {
 
   async getChapterPages(chapterId: string): Promise<SourcePage[]> {
     const start = Date.now();
-    // In HentaiFox, chapterId is the same as galleryId
     const url = `${this.baseUrl}/g/${chapterId}/1/`;
     const $ = await this.fetchHTML(url);
     
-    const totalPages = parseInt($('#pages').val() as string || '0');
-    const firstImageSrc = $('#gimg').attr('data-src') || '';
+    const totalPagesStr = $('#pages').val() as string || $('.total_pages').first().text().trim() || '0';
+    const totalPages = parseInt(totalPagesStr);
+    const firstImageSrc = $('#gimg').attr('data-src') || $('#gimg').attr('src') || '';
     
     if (!firstImageSrc || !totalPages) return [];
 
-    // Construct image URLs based on the first one
+    // Smarter image URL construction
     // Example: https://i3.hentaifox.com/004/3949613/1.webp
-    const baseUrlParts = firstImageSrc.split('/');
-    const extension = firstImageSrc.split('.').pop();
-    baseUrlParts.pop(); // remove 1.webp
-    const baseImageUrl = baseUrlParts.join('/');
+    const urlObj = new URL(firstImageSrc);
+    const pathParts = urlObj.pathname.split('/');
+    const fileName = pathParts.pop() || ''; // e.g. "1.webp" or "1.jpg"
+    const extension = fileName.split('.').pop();
+    const baseDir = pathParts.join('/');
 
     const pages: SourcePage[] = [];
     for (let i = 1; i <= totalPages; i++) {
       pages.push({
-        url: `${baseImageUrl}/${i}.${extension}`,
+        url: `${urlObj.origin}${baseDir}/${i}.${extension}`,
         index: i - 1,
       });
     }
