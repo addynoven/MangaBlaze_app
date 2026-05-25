@@ -300,7 +300,7 @@
     <string name="folder_with_images">Carpeta con imágenes</string>
     <string name="categories_delete_confirm">¿Estás seguro de que quieres eliminar las categorías favoritas seleccionadas? \nTodos los mangas en ella se perderán y esto no se puede deshacer.</string>
     <string name="explore">Explorar</string>
-    <string name="memory_usage_pattern">%1$s - %2$s</string>
+    <string name="memory_usage_pattern" translatable="false">%1$s - %2$s</string>
     <string name="exit_confirmation_summary">Pulse dos veces «Atrás» para salir de la aplicación</string>
     <string name="exit_confirmation">Confirmación de salida</string>
     <string name="pages_cache">Caché de páginas</string>

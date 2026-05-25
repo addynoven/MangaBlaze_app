@@ -311,7 +311,7 @@
     <string name="import_completed_hint">可删除原文件节省存储空间</string>
     <string name="import_will_start_soon">即将开始导入</string>
     <string name="feed">订阅</string>
-    <string name="memory_usage_pattern">%1$s - %2$s</string>
+    <string name="memory_usage_pattern" translatable="false">%1$s - %2$s</string>
     <string name="not_found_404">没有章节或已被删除</string>
     <string name="reader_control_ltr_summary">硬件输入设备控制下，翻页方向将不随阅读模式调整。例：按下右键总是翻到下一页</string>
     <string name="reader_control_ltr">人性化操作</string>

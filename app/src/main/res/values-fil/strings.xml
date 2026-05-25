@@ -250,7 +250,7 @@
     <string name="other_cache">Iba pang cache</string>
     <string name="storage_usage">Paggamit ng storage</string>
     <string name="available">Magagamit na</string>
-    <string name="memory_usage_pattern">%1$s - %2$s</string>
+    <string name="memory_usage_pattern" translatable="false">%1$s - %2$s</string>
     <string name="removed_from_favourites">Inalis sa mga paborito</string>
     <string name="options">Mga pagpipilian</string>
     <string name="incognito_mode">Incognito na mode</string>

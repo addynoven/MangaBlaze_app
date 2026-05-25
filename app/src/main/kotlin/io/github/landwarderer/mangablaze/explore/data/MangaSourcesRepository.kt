@@ -348,8 +348,8 @@ class MangaSourcesRepository @Inject constructor(
 	private suspend fun getNewSources(): MutableSet<out MangaSource> {
 		val entities = dao.findAll()
 		val result = HashSet<MangaSource>()
-        result.addAll(MangaParserSource.entries)
-        result.addAll(mihonExtensionManager.getMihonMangaSources())
+		result.addAll(MangaParserSource.entries)
+		result.addAll(mihonExtensionManager.getMihonMangaSources())
 		for (e in entities) {
 			result.remove(e.source.toMangaSourceOrNull() ?: continue)
 		}
