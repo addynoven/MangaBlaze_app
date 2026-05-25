@@ -1,0 +1,607 @@
+# Manga Source Implementation Checklist
+
+## Agent Rules
+
+> **DO NOT** have two agents work on the same source. Update the checkbox **before** starting work.
+
+| Symbol | Meaning |
+|--------|---------|
+| `- [ ]` | Not started |
+| `- [•]` `- [.]` | Agent is currently working on it |
+| `- [x]` | Can't be done (blocked, broken, NSFW skip, etc.) |
+| `- [✓]` `- [v]` | Done / implemented |
+
+---
+
+Generated from Keiyoushi extensions index.
+**Total sources to add:** 568
+
+## Manga / Manhwa / Manhua Aggregators (43)
+
+- [x] **MangaDraft** — `https://mangadraft.com`
+- [x] **MangaTaro** — `https://mangataro.org`
+- [x] **MangaToon (Limited)** — `https://mangatoon.mobi`
+- [x] **Manga UP!** — `https://global.manga-up.com`
+- [x] **Aqua Manga** — `https://aquareader.org`
+- [✓] **Bun Manga** — `https://bunmanga.com`
+- [x] **Clone Manga** — `https://manga.clone-army.org`
+- [x] **EZmanga** — `https://ezmanga.org`
+- [x] **GakaMangas** — `https://gakamangas.com`
+- [✓] **Honkai Impact 3rd** — `https://manga.honkaiimpact3.com`
+- [✓] **LikeManga** — `https://likemanga.ink`
+- [x] **Madokami** — `https://manga.madokami.al` — 401 Unauthorized, requires authentication
+- [x] **Magus Manga** — `https://magustoon.org`
+- [x] **MangaBlaze** — `https://mangablaze.com`
+- [x] **MangaBolt** — `https://mangabolt.com`
+- [✓] **Mangack** — `https://mangack.com`
+- [x] **MangaCloud** — `https://mangacloud.org`
+- [x] **MangaDia** — `https://mangadia.com`
+- [✓] **MangaGo.fun** — `https://www.mangago.fun`
+- [✓] **MangaKa** — `https://mangaka.cc`
+- [✓] **Manga Kiss** — `https://mangakiss.org`
+- [x] **Mangamo** — `https://www.mangamo.com`
+- [✓] **MangaPanda.onl** — `https://mangapanda.onl`
+- [✓] **MangaReader.site** — `https://mangareader.site`
+- [x] **Manga Sect** — `https://mangasect.net`
+- [✓] **Mangasushi** — `https://mangasushi.org`
+- [✓] **Mangatellers** — `https://reader.mangatellers.gr`
+- [✓] **Manga Trend** — `https://mangatrend.org`
+- [x] **ManhuaFast.net (unoriginal)** — `https://manhuafast.net`
+- [✓] **ManhuaHot** — `https://manhuahot.com`
+- [x] **Manhuanext** — `https://manhuanext.com`
+- [✓] **Manhua Plus** — `https://manhuaplus.com`
+- [x] **ManhuaPlus (Unoriginal)** — `https://manhuaplus.org`
+- [x] **Manhua Rush** — `https://manhuarush.vercel.app`
+- [x] **ManhuaUS** — `https://manhuaus.com`
+- [✓] **ManhwaGet** — `https://manhwaget.com`
+- [x] **Read Attack on Titan Shingeki no Kyojin Manga** — `https://ww11.readsnk.com`
+- [✓] **Read Berserk Manga** — `https://readberserk.com`
+- [✓] **Read Boku no Hero Academia My Hero Academia Manga** — `https://ww10.readmha.com`
+- [✓] **Read Vagabond Manga** — `https://readbagabondo.com`
+- [x] **Ryumanga** — `https://ryumanga.org`
+- [✓] **vgperson** — `https://vgperson.com/other/mangaviewer.php`
+- [x] **Zinmanga.net** — `https://zinmanga.net`
+
+## Webtoon Platforms (18)
+
+- [x] **izneo** — `https://www.izneo.com/en/webtoon` — Paid subscription platform (no free chapters); base URL 404; Nuxt.js SPA with minimal SSR
+- [x] **Taddy INK (Webtoons)** — `https://taddy.org` — React SPA, no SSR; site is a creator toolkit, not a manga reader
+- [x] **Webtoons.com** — `https://www.webtoons.com` — Viewer loads comic images via JS; only thumbnails in SSR HTML
+- [✓] **Frieren Online** — `https://www.frieren.online`
+- [✓] **One Punch Man Online** — `https://w11.1punchman.com`
+- [✓] **Read Black Clover Manga Online** — `https://ww10.readblackclover.com`
+- [✓] **ReadComicOnline** — `https://rcostation.xyz`
+- [✓] **Read Comics Online** — `https://readcomicsonline.ru`
+- [✓] **Read Fairy Tail & Edens Zero Manga Online** — `https://ww8.readfairytail.com`
+- [✓] **Read Jujutsu Kaisen Manga Online** — `https://ww5.readjujutsukaisen.com`
+- [✓] **Read Kingdom Manga Online** — `https://ww5.readkingdom.com`
+- [✓] **Read Nanatsu no Taizai 7 Deadly Sins Manga Online** — `https://ww7.read7deadlysins.com`
+- [✓] **Read Naruto Boruto Samurai 8 Manga Online** — `https://ww11.readnaruto.com`
+- [✓] **Read One Piece Manga Online** — `https://ww12.readonepiece.com`
+- [✓] **Read One-Punch Man Manga Online** — `https://ww6.readopm.com`
+- [✓] **Read Solo Leveling Manga Manhwa Online** — `https://ww3.readsololeveling.org`
+- [✓] **Read Tokyo Ghoul Re & Tokyo Ghoul Manga Online** — `https://ww11.tokyoghoulre.com`
+- [x] **Spmanhwa** — `https://spmanhwa.online`
+
+## Comic Strips / Western Comics (35)
+
+- [x] **Comic Growl** — `https://comic-growl.com` (Next.js SPA, no SSR)
+- [✓] **Comics Kingdom** — `https://wp.comicskingdom.com`
+- [✓] **Commit Strip** — `https://www.commitstrip.com`
+- [✓] **Dragon Ball Multiverse** — `https://www.dragonball-multiverse.com`
+- [x] **League of Legends** — `https://universe.leagueoflegends.com/en_us/comic/` (SPA, no SSR comic content)
+- [✓] **Pepper&Carrot** — `https://www.peppercarrot.com`
+- [✓] **Sandra and Woo** — `https://www.sandraandwoo.com`
+- [✓] **xkcd** — `https://xkcd.com`
+- [x] **YSK Comics** — `https://www.ysk-comics.com` (404 Not Found)
+- [x] **Akai Comic** — `https://akaicomic.org` (React SPA, no SSR)
+- [✓] **Aurora** — `https://comicaurora.com`
+- [x] **azComic** — `https://azcomic.com` — timeout/unreachable
+- [x] **ComicHubFree** — `https://comichubfree.com` — 403 Forbidden
+- [✓] **Dark Legacy Comics** — `https://www.darklegacycomics.com`
+- [✓] **Digital Comic Museum** — `https://digitalcomicmuseum.com`
+- [✓] **El Goonish Shive** — `https://www.egscomics.com`
+- [✓] **Existential Comics** — `https://existentialcomics.com`
+- [✓] **Flame Comics** — `https://flamecomics.xyz`
+- [✓] **Grrl Power Comic** — `https://www.grrlpowercomic.com`
+- [✓] **Gone with the Blastwave** — `https://www.blastwave-comic.com`
+- [x] **Hiveworks Comics** — `https://hiveworkscomics.com` — directory of external links, does not host comic content
+- [x] **MLBB Lore Comics** — `https://play.mobilelegends.com` — SPA with no comic content in HTML, game site not a comic host
+- [x] **ReadAllComics** — `https://readallcomics.com` — search endpoint returns empty/blocked, unusable without search
+- [✓] **Real Life Comics** — `https://reallifecomics.com`
+- [✓] **Rinko Comics** — `https://rinkocomics.com`
+- [x] **Rizz Comic** — `https://rizzfables.com` — SPA, series/chapter pages return 0 bytes (no SSR)
+- [✓] **Rizz Comic (unoriginal)** — `https://rizzcomic.com`
+- [✓] **RokariComics** — `https://rokaricomics.com`
+- [✓] **Saturday Morning Breakfast Comics** — `https://smbc-comics.com`
+- [✓] **SUPER MEGA** — `https://www.supermegacomics.com`
+- [✓] **Swords Comic** — `https://swordscomic.com`
+- [✓] **The Property of Hate** — `https://jolleycomics.com`
+- [x] **Webcomics** — `https://webcomicsapp.com`
+- [✓] **XOXO Comics** — `https://xoxocomic.com`
+- [x] **YakshaComics** — `https://yakshacomics.com`
+
+## Scanlation Groups (63)
+
+- [✓] **HNI-Scantrad** — `https://hni-scantrad.net`
+- [x] **Magical Translators** — `https://mahoushoujobu.com` — client-side rendered SPA, no SSR/API fallback
+- [✓] **Thunder Scans** — `https://en-thunderscans.com`
+- [✓] **Arena Scans** — `https://arenascan.com`
+- [✓] **Arven Scans** — `https://arvencomics.com`
+- [✓] **Vortex Scans** — `https://vortexscans.org`
+- [x] **Arya Scans** — `https://brainrotcomics.com` — chapter list loaded only via AJAX with no fallback
+- [x] **Asmodeus Scans** — `https://asmotoon.com` — HTMX/Alpine.js SPA, no SSR content
+- [✓] **Assorted Scans** — `https://assortedscans.com`
+- [✓] **Asura Scans** — `https://asurascans.com`
+- [x] **Borat Scans** — `https://boratscans.com` — site has almost no manga and chapters don't load (AJAX returns empty)
+- [✓] **Crow Scans** — `https://crowscans.xyz`
+- [x] **Dark Scans** — `https://darkscans.net` — anti-adblock redirect loop, requires JS
+- [✓] **Death Toll Scans** — `https://reader.deathtollscans.net`
+- [x] **DFlowScans** — `https://dflow.alwaysdata.net` — unreachable (connection timeout)
+- [x] **Drake Scans** — `https://drakecomic.org` — 403 Forbidden
+- [✓] **Scythe Scans** — `https://scythescans.com`
+- [✓] **Eva Scans** — `https://evascans.org`
+- [x] **Firescans** — `https://firescans.xyz`
+- [x] **Goda** — `https://manhuascans.org`
+- [x] **Greed Scans** — `https://gojoscans.com`
+- [x] **Grim Scans** — `https://grimscans.com`
+- [✓] **Hades Scans** — `https://hadesscans.com`
+- [x] **Hijala Scans** — `https://en-hijala.com`
+- [x] **Hive Scans** — `https://hivetoons.org` — custom Astro app, no working search, chapter images loaded client-side only
+- [✓] **Kayn Scans** — `https://kaynscan.com`
+- [x] **Ken Scans** — `https://kencomics.com` — same custom Astro platform as Hive, no working search, chapter images client-side only
+- [✓] **Kewn Scans** — `https://kewnscans.org`
+- [✓] **Lagoon Scans** — `https://lagoonscans.com`
+- [✓] **LHTranslation** — `https://lhtranslation.net`
+- [x] **Lua Scans** — `https://luacomic.org` — Next.js SPA with no SSR data
+- [✓] **Luminare Translations** — `https://luminaretranslations.com`
+- [✓] **Madara Scans** — `https://madarascans.com`
+- [✓] **Manga Demon** — `https://demonicscans.org`
+- [x] **Mist Scans** — `https://mistscans.com`
+- [x] **Monochrome Scans** — `https://manga.d34d.one`
+- [x] **Necro Scans** — `https://necroscans.com`
+- [✓] **Noxen Scans** — `https://noxenscan.com`
+- [x] **Nux Scans** — `https://nuxscans-comics.blogspot.com`
+- [x] **Nyx Scans** — `https://nyxscans.com`
+- [ ] **Orion Scans** — `https://orion-scans.com`
+- [ ] **Philia Scans** — `https://philiascans.org`
+- [ ] **FlameScans.lol** — `https://flamescans.lol`
+- [ ] **QiScans** — `https://qimanhwa.com`
+- [ ] **Rage Scans** — `https://ragescans.com`
+- [ ] **RD Scans** — `https://rdscans.com`
+- [ ] **Renascans** — `https://renascans.net`
+- [✓] **Reset Scans** — `https://reset-scans.org`
+- [ ] **RitharScans** — `https://ritharscans.com`
+- [ ] **Rolia Scan** — `https://roliascan.com`
+- [ ] **Sana Scans** — `https://sanascans.com`
+- [ ] **Setsu Scans** — `https://setsuscans.com`
+- [ ] **Violet Scans** — `https://violetscans.org`
+- [ ] **Siren Scans** — `https://sirenscans.com`
+- [ ] **Sleepy Translations** — `https://sleepytranslations.com`
+- [ ] **TCB Scans** — `https://tcbonepiecechapters.com`
+- [ ] **TCB Scans (Unoriginal)** — `https://tcbscanonepiecechapters.com`
+- [ ] **TritiniaScans** — `https://tritinia.org`
+- [ ] **Valir Scans** — `https://valirscans.org`
+- [ ] **Vanilla Scans** — `https://vanillascans.org`
+- [ ] **Webdex Scans** — `https://webdexscans.com`
+- [ ] **WitchScans** — `https://witchscans.com`
+- [ ] **Writer Scans** — `https://writerscans.com`
+
+## Official Publishers (7)
+
+- [✓] **Comikey** — `https://comikey.com`
+- [✓] **Corona EX** — `https://en.to-corona-ex.com`
+- [x] **MANGA Plus by SHUEISHA** — `https://mangaplus.shueisha.co.jp` — Pure Vue SPA with no SSR content
+- [x] **MANGA Plus Creators by SHUEISHA** — `https://mangaplus-creators.jp` — Laravel app, manga search results rendered only by JS with no fallback HTML
+- [x] **K Manga** — `https://kmanga.kodansha.com` — Nuxt.js SPA, no SSR search results or chapter lists
+- [✓] **VIZ Shonen Jump** — `https://www.viz.com`
+- [ ] **VIZ Manga** — `https://www.viz.com`
+
+## Hentai / NSFW (339)
+
+- [ ] **AHottie** — `https://ahottie.top`
+- [ ] **Akuma** — `https://akuma.moe`
+- [ ] **AllPornComics.co** — `https://allporncomics.co`
+- [ ] **AsmHentai** — `https://asmhentai.com`
+- [ ] **BaoBua** — `https://baobua.net`
+- [ ] **3600000 Beauty** — `https://3600000.xyz`
+- [ ] **Buon Dua** — `https://buondua.com`
+- [ ] **Comic Fury** — `https://comicfury.com`
+- [ ] **Comick (Unoriginal)** — `https://comick.live`
+- [ ] **Comics Valley** — `https://comicsvalley.com`
+- [ ] **Coomer** — `https://coomer.st`
+- [ ] **CosplayTele** — `https://cosplaytele.com`
+- [ ] **Danbooru** — `https://danbooru.donmai.us`
+- [ ] **DeviantArt** — `https://www.deviantart.com`
+- [ ] **e621** — `https://e621.net`
+- [ ] **Elite Babes** — `https://www.elitebabes.com`
+- [ ] **Everia.club** — `https://everia.club`
+- [ ] **EveriaClub (unoriginal)** — `https://www.everiaclub.com`
+- [ ] **Femjoy Hunter** — `https://www.femjoyhunter.com`
+- [ ] **FoamGirl** — `https://foamgirl.net`
+- [ ] **4KHD** — `https://www.4khd.com`
+- [ ] **FTV Hunter** — `https://www.ftvhunter.com`
+- [ ] **GlobalComix** — `https://globalcomix.com`
+- [ ] **Grabber Zone** — `https://grabber.zone`
+- [ ] **HDoujin** — `https://hdoujin.org`
+- [ ] **Hennojin** — `https://hennojin.com`
+- [ ] **3Hentai** — `https://3hentai.net`
+- [ ] **Hentai Cosplay** — `https://hentai-cosplay-xxx.com`
+- [ ] **HentaiEnvy** — `https://hentaienvy.com`
+- [ ] **HentaiEra** — `https://hentaiera.com`
+- [ ] **HentaiFox** — `https://hentaifox.com`
+- [ ] **HentaiHand** — `https://hentaihand.com`
+- [ ] **HentaiRox** — `https://hentairox.com`
+- [ ] **HentaiZap** — `https://hentaizap.com`
+- [ ] **Honeytoon** — `https://honeytoon.com`
+- [ ] **IMHentai** — `https://imhentai.xxx`
+- [ ] **JJCOS** — `https://jjcos.com`
+- [ ] **Joymii Hub** — `https://www.joymiihub.com`
+- [ ] **Junmeitu** — `https://meijuntu.com`
+- [ ] **Kemono** — `https://kemono.cr`
+- [ ] **Kiutaku** — `https://kiutaku.com`
+- [ ] **SchaleNetwork** — `https://schale.network`
+- [ ] **Lunar Manga** — `https://lunaranime.ru`
+- [ ] **Luscious** — `https://www.luscious.net`
+- [ ] **Manga18.me** — `https://manga18.me`
+- [ ] **Manga Ball** — `https://mangaball.net`
+- [ ] **MangaCrazy** — `https://mangacrazy.net`
+- [ ] **MangaDex** — `https://mangadex.org`
+- [ ] **MangaDNA** — `https://mangadna.com`
+- [ ] **MangaFire** — `https://mangafire.to`
+- [ ] **MangaForFree.net** — `https://mangaforfree.net`
+- [ ] **Manhuarm** — `https://manhuarmtl.com`
+- [ ] **Manhwa18.cc** — `https://manhwa18.cc`
+- [ ] **Manhwa18.Net** — `https://manhwa18.net`
+- [ ] **Manhwa 18 Uncensored** — `https://manhwa18uncensored.com`
+- [ ] **ManhwaClub.net** — `https://manhwaclub.net`
+- [ ] **Manhwa-raw** — `https://manhwa-raw.com`
+- [ ] **Metart Hunter** — `https://www.metarthunter.com`
+- [ ] **MissKon** — `https://misskon.com`
+- [ ] **Mitaku** — `https://mitaku.net`
+- [ ] **MyReadingManga** — `https://myreadingmanga.info`
+- [ ] **nHentai.com (unoriginal)** — `https://nhentai.com`
+- [ ] **NHentai.xxx** — `https://nhentai.xxx`
+- [ ] **Niadd** — `https://www.niadd.com`
+- [ ] **NineMangaEn** — `https://www.ninemanga.com`
+- [ ] **NovelCool** — `https://www.novelcool.com`
+- [ ] **OSOSEDKI** — `https://ososedki.com`
+- [ ] **PandaChaika** — `https://panda.chaika.moe`
+- [ ] **Photos18** — `https://www.photos18.com`
+- [ ] **Pixiv** — `https://www.pixiv.net`
+- [ ] **Playmate Hunter** — `https://pmatehunter.com`
+- [ ] **PornPics** — `https://www.pornpics.com`
+- [ ] **QToon** — `https://qtoon.com`
+- [ ] **Roku Hentai** — `https://rokuhentai.com`
+- [ ] **BlossomManhwa** — `https://api.cherrymanhwa.com`
+- [ ] **SeraphicDeviltry** — `https://seraphic-deviltry.com`
+- [ ] **Simply Cosplay** — `https://www.simply-cosplay.com`
+- [ ] **Simply Hentai** — `https://www.simply-hentai.com`
+- [ ] **StashApp** — `http://localhost:9999`
+- [ ] **Tappytoon** — `https://www.tappytoon.com/en`
+- [ ] **Toomics (Only free chapters)** — `https://global.toomics.com`
+- [ ] **Twicomi** — `https://twicomi.com`
+- [ ] **Uncensored Manhwa** — `https://uncensoredmanhwa.us`
+- [ ] **XArt Hunter** — `https://www.xarthunter.com`
+- [ ] **XAsiat Albums** — `https://www.xasiat.com`
+- [ ] **性感美女** — `http://xgmn8.vip`
+- [ ] **Xinmeitulu** — `https://www.xinmeitulu.com`
+- [ ] **Xiutaku** — `https://xiutaku.com`
+- [ ] **Yabai** — `https://yabai.si`
+- [ ] **Yaoi Manga Online** — `https://yaoimangaonline.com`
+- [ ] **小黄书** — `https://en.xchina.co`
+- [ ] **AllManga** — `https://allmanga.to`
+- [ ] **AllPornComic** — `https://allporncomic.com`
+- [ ] **AllPornComic.io** — `https://allporncomic.io`
+- [ ] **Anisa Scans** — `https://anisascans.in`
+- [ ] **AP Comics** — `https://apcomics.org`
+- [ ] **Armageddon** — `https://www.silentquill.net`
+- [ ] **AsiaToon** — `https://asiatoon.net`
+- [ ] **Athrea Scans** — `https://athreascans.com`
+- [ ] **Atsumaru** — `https://atsu.moe`
+- [ ] **Omoi** — `https://www.omoi.com`
+- [ ] **Bbato** — `https://bbato.com`
+- [ ] **BeeHentai** — `https://beehentai.com`
+- [ ] **BookWalker Global** — `https://global.bookwalker.jp`
+- [ ] **BoxManhwa** — `https://boxmanhwa.com`
+- [ ] **Buttsmithy** — `https://incase.buttsmithy.com`
+- [ ] **CManhua** — `https://cmanhua.com`
+- [ ] **Cocomic** — `https://cocomic.co`
+- [ ] **Coffee Manga** — `https://coffeemanga.ink`
+- [ ] **Comic Asura** — `https://comicasura.net`
+- [ ] **Comic CX** — `https://comic.cx`
+- [ ] **ComicK Fanmade** — `https://comickfan.com`
+- [ ] **Manhuagold** — `https://manhuagold.top`
+- [ ] **ComicLand** — `https://comicland.org`
+- [ ] **Comics Land** — `https://comicsland.org`
+- [ ] **Comix** — `https://comix.to`
+- [ ] **Cucumber Manga** — `https://cucumbermanga.com`
+- [ ] **CulturedWorks** — `https://culturedworks.com`
+- [ ] **Cutie Comics** — `https://cutiecomics.com`
+- [ ] **Danke fürs Lesen** — `https://danke.moe`
+- [✓] **Decadence Scans** — `https://reader.decadencescans.com`
+- [ ] **Diva Scans** — `https://divatoon.com`
+- [ ] **Doujin.io - J18** — `https://doujin.io`
+- [ ] **Doujins** — `https://doujins.com`
+- [ ] **Dynasty Scans** — `https://dynasty-scans.com`
+- [ ] **Eggporncomics** — `https://eggporncomics.com`
+- [ ] **18 Porn Comic** — `https://18porncomic.com`
+- [ ] **8Muses** — `https://comics.8muses.com`
+- [ ] **EpicManga** — `https://epicmanga.co`
+- [ ] **Eris Scans** — `https://erisscans.com`
+- [ ] **Ero18x** — `https://ero18x.com`
+- [ ] **Erofus** — `https://www.erofus.com`
+- [ ] **Fable Scans** — `https://fablescans.com`
+- [ ] **Fairy Scans** — `https://fairyscans.com`
+- [ ] **GalaxyDegenScans** — `https://gdscans.com`
+- [ ] **Galaxy Manga** — `https://galaxymanga.io`
+- [ ] **GEDE Comix** — `https://gedecomix.com`
+- [ ] **GingeRTooN** — `https://gingertoon.com`
+- [ ] **GirlsTop** — `https://en.girlstop.info`
+- [ ] **Gourmet Scans** — `https://gourmetsupremacy.com`
+- [ ] **Hachirumi** — `https://hachirumi.com`
+- [ ] **Harimanga** — `https://harimanga.me`
+- [ ] **Hentai3z.CC** — `https://hentai3z.cc`
+- [ ] **Hentai4Free** — `https://hentai4free.net`
+- [ ] **HentaiDex** — `https://dexhentai.com`
+- [ ] **HentaiHere** — `https://hentaihere.com`
+- [ ] **HentaiKun** — `https://hentaikun.com`
+- [ ] **HentaiNexus** — `https://hentainexus.com`
+- [ ] **HentaiRead** — `https://hentairead.com`
+- [ ] **HentaiRead.io** — `https://hentairead.io`
+- [ ] **HentaiSco** — `https://hentaisco.cc`
+- [ ] **HentaiXComic** — `https://hentaixcomic.com`
+- [ ] **HentaiXDickgirl** — `https://hentaixdickgirl.com`
+- [ ] **HentaiXYuri** — `https://hentaixyuri.com`
+- [ ] **Hentara** — `https://hentara.com`
+- [ ] **HeyToon** — `https://heytoon.net`
+- [ ] **Hiperdex** — `https://hiperdex.com`
+- [ ] **HM2D** — `https://doujindistrict.com`
+- [ ] **HotComics** — `https://hotcomics.me`
+- [ ] **Hyakuro Translations** — `https://hyakuro.net`
+- [ ] **InfinityScans** — `https://infinityscans.org`
+- [ ] **I Roved Out** — `https://www.irovedout.com`
+- [ ] **IsekaiScan.top (unoriginal)** — `https://isekaiscan.top`
+- [ ] **Jinmangas** — `https://jinmangas.com`
+- [ ] **Kagane** — `https://kagane.org`
+- [ ] **Kaizen Scan** — `https://kaizenscan.com`
+- [ ] **KaliScan.com** — `https://kaliscan.com`
+- [ ] **KaliScan.io** — `https://kaliscan.io`
+- [ ] **KaliScan.me** — `https://kaliscan.me`
+- [ ] **Kappa Beast** — `https://kappabeast.com`
+- [ ] **KingComiX** — `https://kingcomix.com`
+- [ ] **King of Shojo** — `https://kingofshojo.com`
+- [ ] **Kissmanga.in** — `https://kissmanga.in`
+- [ ] **Kodansha** — `https://kodansha.us`
+- [ ] **KSGroupScans** — `https://ksgroupscans.com`
+- [ ] **Kun Manga** — `https://kunmanga.com`
+- [ ] **KuraManga** — `https://kuramanga.com`
+- [ ] **MangaYY** — `https://mangayy.org`
+- [ ] **Lily Manga** — `https://lilymanga.net`
+- [ ] **LinkManga** — `https://linkmanga.com`
+- [ ] **Luna Toons** — `https://lunatoons.org`
+- [ ] **MadaraDex** — `https://madaradex.org`
+- [ ] **Mahouirexnohentaikarte** — `https://mahouirexnohentaikarte.com`
+- [ ] **Manga18.Club** — `https://manga18.club`
+- [ ] **Manga18Free** — `https://manga18free.com`
+- [ ] **Manga18fx** — `https://manga18fx.com`
+- [ ] **Manga 18x** — `https://manga18x.net`
+- [ ] **Mangabat** — `https://www.mangabats.com`
+- [ ] **MangaBTT** — `https://manhwabtt.cc`
+- [ ] **MangaBuddy** — `https://mangabuddy.com`
+- [ ] **MangaBuddy.me** — `https://mangabuddy.me`
+- [ ] **MangaClash** — `https://mangaclash.com`
+- [ ] **MangaCute** — `https://mangacute.com`
+- [ ] **Manga Dass** — `https://mangadass.com`
+- [ ] **MangaDE** — `https://mangade.io`
+- [ ] **Manga District** — `https://mangadistrict.com`
+- [ ] **Mangadotnet** — `https://mangadot.net`
+- [ ] **Manga Drama** — `https://mangadrama.com`
+- [ ] **MangaFab** — `https://mangafab.com`
+- [ ] **MangaForest** — `https://mangaforest.me`
+- [ ] **Mangaforfree.com** — `https://mangaforfree.com`
+- [ ] **MangaFox** — `https://fanfox.net`
+- [ ] **MangaFox.fun** — `https://mangafox.fun`
+- [ ] **Mangafreak** — `https://ww2.mangafreak.me`
+- [ ] **Mangafree** — `https://mangafree.info`
+- [ ] **MangaGG** — `https://mangagg.com`
+- [ ] **Mangago** — `https://www.mangago.me`
+- [ ] **MangaHe** — `https://mangahe.com`
+- [ ] **Gensura** — `https://gensura.net`
+- [ ] **Manga Hentai** — `https://mangahentai.me`
+- [ ] **Mangahere** — `https://www.mangahere.cc`
+- [ ] **MangaHere.onl** — `https://mangahere.onl`
+- [ ] **MangaHub** — `https://mangahub.io`
+- [ ] **Mangakakalot** — `https://www.mangakakalot.gg`
+- [ ] **Mangakakalot.fun** — `https://mangakakalot.fun`
+- [ ] **MangaKatana** — `https://mangakatana.com`
+- [ ] **MangaManiacs** — `https://mangamaniacs.org`
+- [ ] **MangaMonk** — `https://mangamonk.com`
+- [ ] **MangaNel** — `https://manganel.me`
+- [ ] **Manganato** — `https://www.natomanga.com`
+- [ ] **MangaNow** — `https://manganow.to`
+- [ ] **MangaOnline.fun** — `https://mangaonline.fun`
+- [ ] **MangaOwl.io (unoriginal)** — `https://mangaowl.io`
+- [ ] **MangaPill** — `https://mangapill.com`
+- [ ] **MangaPuma** — `https://mangapuma.com`
+- [ ] **MangaGeko** — `https://www.mgeko.cc`
+- [ ] **Manga Read** — `https://mangaread.co`
+- [x] **MangaReader.in** — `https://mangareader.in` (Cloudflare challenge blocks manga/chapter pages)
+- [✓] **MangaRead.org** — `https://www.mangaread.org`
+- [ ] **MangaSaga** — `https://mangasaga.com`
+- [ ] **MangaSpin** — `https://mangaspin.com`
+- [ ] **MangaToday** — `https://mangatoday.fun`
+- [ ] **Mangatown** — `https://www.mangatown.com`
+- [ ] **MangaTX** — `https://mangatx.cc`
+- [ ] **MangaXYZ** — `https://mangaxyz.com`
+- [ ] **ManhuaFast** — `https://manhuafast.com`
+- [ ] **ManhuaNow** — `https://manhuanow.com`
+- [ ] **Manhuascan.us** — `https://manhuascan.us`
+- [ ] **ManhuaSite** — `https://manhuasite.com`
+- [ ] **ManhuaTop** — `https://manhuatop.org`
+- [ ] **Manhua Zonghe** — `https://www.manhuazonghe.com`
+- [x] **Manhwa18** — `https://manhwa18.com` — SPA, skipped
+- [x] **Manhwa18.org** — `https://manhwa18.org` — 521, skipped
+- [x] **Manhwa68** — `https://manhwa68.com` — Cloudflare, skipped
+- [x] **ManhwaBuddy** — `https://manhwabuddy.com` — Implemented
+- [x] **ManhwaClan** — `https://manhwaclan.com` — Cloudflare, skipped
+- [ ] **Manhwa Comics** — `https://manhwacomics.com`
+- [ ] **ManhwaDen** — `https://www.manhwaden.com`
+- [ ] **ManhwaHub** — `https://manhwahub.net`
+- [ ] **Manhwajoy** — `https://manhwajoy.com`
+- [ ] **Manhwalike** — `https://manhwalike.com`
+- [x] **Manhwalover** — `https://www.manhwalover.org` — no content, skipped
+- [x] **ManhwaManhua** — `https://manhwamanhua.com` — 402, skipped
+- [x] **ManhwaRead** — `https://manhwaread.com#, https://manhwaread.org` — AJAX-only chapters, skipped
+- [x] **Manhwa Reads** — `https://manhwareads.com` — no content, skipped
+- [x] **Manhwa Toon** — `https://www.manhwatoon.me` — no content, skipped
+- [ ] **Manhwatop** — `https://manhwatop.com`
+- [ ] **Manhwax** — `https://manhwax.top`
+- [ ] **Manhwa XXL** — `https://hentaitnt.net`
+- [ ] **ManhwaZ** — `https://manhwaz.com`
+- [ ] **ManhwaZone** — `https://manhwazone.com`
+- [ ] **Manta** — `https://manta.net`
+- [ ] **Mehgazone** — `https://mehgazone.com`
+- [ ] **MGJinx** — `https://mgjinx.com`
+- [ ] **Mgread.io** — `https://mgread.io`
+- [ ] **Milftoon** — `https://milftoon.xxx`
+- [ ] **Multporn** — `https://multporn.net`
+- [ ] **MurimScan** — `https://www.murimscans.site`
+- [ ] **MyHentaiComics** — `https://myhentaicomics.com`
+- [ ] **MyHentaiGallery** — `https://myhentaigallery.com`
+- [ ] **New Manhwa** — `https://newmanhwa.com`
+- [ ] **NexComic** — `https://nexcomic.com`
+- [ ] **NineAnime** — `https://www.nineanime.com`
+- [ ] **NineHentai** — `https://9hentai.so`
+- [ ] **Ninekon** — `https://app.ninekon.com`
+- [ ] **NixManga** — `https://nixmanga.com`
+- [ ] **24HNovel** — `https://24hnovel.com`
+- [ ] **NovelCrow** — `https://novelcrow.com`
+- [ ] **Nyra Scans** — `https://nyrascans.com`
+- [ ] **OctopusManga** — `https://octopusmanga.com`
+- [ ] **Oglaf** — `https://www.oglaf.com`
+- [ ] **Oh Joy Sex Toy** — `https://www.ohjoysextoy.com`
+- [ ] **Omega Scans** — `https://omegascans.org`
+- [ ] **1Manga.co** — `https://1manga.co`
+- [ ] **OneManga.info** — `https://onemanga.info`
+- [ ] **Only The Best Hentai** — `https://onlythebesthentai.com`
+- [ ] **Oppai Stream** — `https://read.oppai.stream`
+- [ ] **Orchisasia** — `https://www.orchisasia.org`
+- [ ] **ParadiseScans** — `https://paradisescans.com`
+- [ ] **Paragon Scans** — `https://paragonscans.com`
+- [ ] **Paritehaber** — `https://www.paritehaber.com`
+- [x] **Paw Manga** — `https://pawmanga.com` — AJAX-only chapters, skipped
+- [x] **Petrotechsociety** — `https://www.petrotechsociety.org` — Implemented
+- [x] **PornComix** — `https://bestporncomix.com` — Cloudflare, skipped
+- [x] **Raven Scans** — `https://ravenscans.org` — Cloudflare, skipped
+- [✓] **Read Chainsaw Man Manga Online** — `https://ww5.readchainsawman.com`
+- [x] **ReiManga** — `https://reimanga.com` — Next.js SPA, skipped
+- [x] **Rest Scans** — `https://restscans.com` — no content, skipped
+- [x] **Retsu** — `https://retsu.org` — 526 SSL error, skipped
+- [x] **Revival Scans** — `https://www.revivalscans.com` — AJAX-only chapters, skipped
+- [x] **Rose Squad Scans** — `https://rosesquadscans.aishiteru.org` — login required, skipped
+- [✓] **S2Manga** — `https://s2manga.com`
+- [x] **ScansGG** — `https://scans.gg` — Nuxt.js SPA, skipped
+- [ ] **Shiba Manga** — `https://shibamanga.com`
+- [ ] **Sky Manga** — `https://skymanga.work`
+- [ ] **SpyFakku** — `https://hentalk.pw`
+- [ ] **Sunshine Butterfly Scans** — `https://wings.sbs`
+- [ ] **Tapas** — `https://tapas.io`
+- [ ] **Team Shadowi** — `https://www.team-shadowi.com`
+- [ ] **Temple Scan** — `https://templetoons.com`
+- [ ] **The Blank** — `https://theblank.net`
+- [x] **The Duck Webcomics** — `https://www.theduckwebcomics.com`
+- [ ] **TodayManga** — `https://todaymanga.com`
+- [ ] **Toon18** — `https://toon18.to`
+- [ ] **ToonGod** — `https://www.toongod.org`
+- [ ] **Toonily** — `https://toonily.com`
+- [ ] **Toonily.me** — `https://toonily.me`
+- [ ] **TooniTube** — `https://toonitube.com`
+- [ ] **Toonizy** — `https://toonizy.com`
+- [x] **Top Manhua** — `https://mangatop.org` — timeout, skipped
+- [x] **TopManhua.fan** — `https://www.topmanhua.fan` — AJAX-only chapters, skipped
+- [x] **TopManhua.net** — `https://topmanhua.net` — no content, skipped
+- [x] **VyvyManga** — `https://vymanga.net` — Cloudflare, skipped
+- [x] **VyvyManga.org** — `https://vyvymanga.org` — 521, skipped
+- [ ] **KokoMangas** — `https://kokomangas.com`
+- [ ] **WebtoonScan** — `https://webtoonscan.com`
+- [ ] **WebtoonXYZ** — `https://www.webtoon.xyz`
+- [ ] **Weeb Central** — `https://weebcentral.com`
+- [ ] **WhaleManga** — `https://whalemanga.com`
+- [ ] **XlecX** — `https://xlecx.one`
+- [ ] **XoManga** — `https://www.xomanga.site`
+- [ ] **YaoiHot** — `https://yaoihot.com`
+- [ ] **Yaoihub** — `https://yaoihub.net`
+- [ ] **YaoiScan** — `https://yaoiscan.com`
+- [ ] **YaoiToon** — `https://yaoitoon.net`
+- [ ] **Zazamanga** — `https://www.zazamanga.com`
+- [ ] **ZinChanManga** — `https://zinchangmanga.net`
+- [ ] **ZinChanManga.com** — `https://zinchangmanga.net`
+- [ ] **Zinmanga** — `https://mangazin.org`
+
+## Other / Misc (63)
+
+- [x] **Cubari** — `https://cubari.moe` — Not a content source; reader proxy for external URLs (gist, imgur, etc.)
+- [ ] **HOLONOMETRIA** — `https://holoearth.com`
+- [ ] **Kodoku Studio** — `https://kodokustudio.com`
+- [ ] **Komga** — ``
+- [ ] **Komga (2)** — ``
+- [ ] **Komga (3)** — ``
+- [ ] **LANraragi (1)** — `http://127.0.0.1:3000`
+- [ ] **LANraragi (2)** — `http://127.0.0.1:3000`
+- [ ] **Mango** — ``
+- [x] **MayoTune** — `https://mayochuu.xyz` — Next.js SPA, skipped
+- [x] **NamiComi** — `https://namicomi.com` — Nuxt.js SPA with no SSR content
+- [x] **One Piece Fans** — `https://one-piece-fans2.com` — Cloudflare, skipped
+- [x] **Project Suki** — `https://projectsuki.com/` — paginated reader, skipped
+- [x] **The Library of Ohara** — `https://thelibraryofohara.com` — blog, skipped
+- [ ] **Vinnie Veritas - CCC** — `https://ccc.vinnieveritas.com`
+- [ ] **Alandal** — `https://alandal.com`
+- [ ] **Arc-Relight** — `https://arc-relight.com`
+- [ ] **Art Lapsa** — `https://artlapsa.com`
+- [ ] **Bakkin** — `https://bakkin.moe/reader/`
+- [ ] **Bakkin Self-hosted** — `http://127.0.0.1/`
+- [ ] **BatCave** — `https://batcave.biz`
+- [ ] **Battle In 5 Seconds After Meeting** — `https://www.deatte5.com`
+- [ ] **Broccoli Soup** — `https://politeandgood.com`
+- [ ] **Clown Corps** — `https://clowncorps.net`
+- [ ] **Collected Curios** — `https://www.collectedcurios.com`
+- [ ] **Dark Science** — `https://dresdencodak.com`
+- [ ] **Darths & Droids** — `https://www.darthsanddroids.net`
+- [ ] **DragonTea** — `https://dragontea.ink`
+- [ ] **Elan School** — `https://elan.school`
+- [ ] **Elf Toon** — `https://elftoon.com`
+- [ ] **Evil Flowers** — `https://evilflowers.com`
+- [ ] **Cyanide & Happiness** — `https://explosm.net`
+- [ ] **Gunnerkrigg Court** — `https://www.gunnerkrigg.com`
+- [ ] **Guya** — `https://guya.cubari.moe`
+- [ ] **J-Novel** — `https://j-novel.club`
+- [ ] **Keenspot TwoKinds** — `https://twokinds.keenspot.com`
+- [ ] **KillSixBillionDemons** — `https://killsixbilliondemons.com`
+- [ ] **Leslie&Victims** — `https://leslie-victims.pages.dev`
+- [ ] **Loading Artist** — `https://loadingartist.com`
+- [ ] **Comivex** — `https://comivex.com`
+- [ ] **Megatokyo** — `https://megatokyo.com`
+- [ ] **MeiToon** — `https://meitoon.org`
+- [ ] **Monochrome Custom** — `https://monochromecms.netlify.app`
+- [ ] **Nika Toons** — `https://nikatoons.com`
+- [ ] **Nyanu Kafe** — `https://nyanukafe.com`
+- [ ] **The Order Of The Stick (OOTS)** — `https://www.giantitp.com`
+- [ ] **Patch Friday** — `https://patchfriday.com`
+- [ ] **Rackus** — `https://rackusreads.com`
+- [ ] **Questionable Content** — `https://www.questionablecontent.net`
+- [ ] **Randowiz** — `https://randowis.com`
+- [ ] **Razure** — `https://razure.org`
+- [ ] **Schlock Mercenary** — `https://www.schlockmercenary.com`
+- [ ] **Solar and Sundry** — `https://sas-api.fly.dev`
+- [✓] **StoneScape** — `https://stonescape.xyz`
+- [✓] **Genz Toons** — `https://genzupdates.com`
+- [✓] **TimelessToons** — `https://timelesstoons.org`
+- [ ] **Utoon** — `https://utoon.net`
+- [x] **VoyceMe** — `https://www.voyce.me` — no manga content, skipped
+- [x] **War For Rayuba** — `https://xrabohrok.github.io/WarMap/#/` — map viewer, skipped
+- [x] **WebNovel** — `https://www.webnovel.com` — Cloudflare, skipped
+- [x] **WoopRead** — `https://woopread.com` — Next.js SPA, skipped
+- [✓] **WuxiaWorld** — `https://wuxiaworld.site`
+- [x] **Yorai** — `https://yorai.io` — Next.js SPA, skipped
+

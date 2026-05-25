@@ -1,0 +1,21 @@
+{
+  "name": "MangaBlaze",
+  "short_name": "MangaBlaze",
+  "description": "High-performance unified manga reader and aggregator.",
+  "start_url": "/home",
+  "display": "standalone",
+  "background_color": "#0e1726",
+  "theme_color": "#3c8bc6",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
