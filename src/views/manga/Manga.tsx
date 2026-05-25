@@ -61,9 +61,28 @@ const MangaPage = ({ mangaId, sourceId }: MangaPageProps) => {
         if (!active) return
         const latency = Date.now() - start
         reportSourceHealth(activeSourceId, !!mangaRes, latency)
+        
+        const loadedChapters = feedRes?.data || []
         setManga(mangaRes || null)
-        setChapters(feedRes?.data || [])
+        setChapters(loadedChapters)
         setLoading(false)
+
+        // Automatic Fallback: If no chapters, and we haven't tried resolving yet, do it now
+        if (loadedChapters.length === 0 && mangaRes?.title) {
+          console.log(`[Fallback] No chapters on ${activeSourceId}, resolving...`)
+          const otherSources = pinnedSources.filter(s => s !== activeSourceId).join(',')
+          if (otherSources) {
+            fetch(`/api/manga/resolve?title=${encodeURIComponent(mangaRes.title)}&sources=${otherSources}`)
+              .then(res => res.json())
+              .then(res => {
+                if (res.data && res.data.length > 0) {
+                  const firstMatch = res.data[0]
+                  console.log(`[Fallback] Found match on ${firstMatch.sourceId}, switching...`)
+                  handleSwitchSource(firstMatch.sourceId, firstMatch.mangaId)
+                }
+              })
+          }
+        }
       })
       .catch(() => {
         if (!active) return

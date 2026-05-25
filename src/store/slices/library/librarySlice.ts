@@ -20,7 +20,7 @@ interface LibraryState {
 }
 
 const initialState: LibraryState = {
-  pinnedSources: ['mangadex'],
+  pinnedSources: ['mangadex', 'asurascans', 'comick'],
   bookmarks: [],
   history: [],
   unreadUpdates: [],

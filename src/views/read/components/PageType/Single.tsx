@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect } from 'react'
 import classNames from 'classnames'
 import { EffectFade } from 'swiper/modules'
@@ -11,6 +13,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '@/store'
+import { proxiedImageUrl } from '@/utils/manga'
 
 type SingleProps = {
   swiperRef?: React.RefObject<SwiperRef | null>
@@ -50,7 +53,7 @@ const Single = (props: SingleProps) => {
         {pages.map((src, index) => (
           <SwiperSlide key={index} className="img loaded">
             <img
-              src={src}
+              src={proxiedImageUrl(src)}
               className={fitClassName[fitType]}
               referrerPolicy="no-referrer"
               alt={`Page ${index + 1}`}

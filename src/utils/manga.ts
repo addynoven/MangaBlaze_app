@@ -90,3 +90,8 @@ export function toPosterItem(manga: SourceManga, sourceId?: string): PosterItem 
     source: sourceId
   }
 }
+
+export function proxiedImageUrl(url?: string): string {
+  if (!url || url.startsWith('/') || url.includes('localhost')) return url || '/images/placeholder.png'
+  return `/api/proxy/image?url=${encodeURIComponent(url)}`
+}
