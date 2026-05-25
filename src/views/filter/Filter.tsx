@@ -14,7 +14,7 @@ const FilterPage = () => {
   const router = useRouter()
   const pathname = usePathname()
 
-  const [results, setResults] = useState<{ source: string, data: Genre[] }[]>([])
+  const [data, setData] = useState<Genre[]>([])
   const [loading, setLoading] = useState(true)
 
   const source = searchParams.get('source') || 'mangadex'
@@ -32,39 +32,35 @@ const FilterPage = () => {
       .then((res) => res.json())
       .then((res) => {
         if (!res.data) {
-          setResults([])
+          setData([])
           setLoading(false)
           return
         }
 
-        const groupedResults = res.data.map((sourceRes: any) => ({
-          source: sourceRes.source,
-          data: (sourceRes.data || [])
-            .map((manga: any): Genre | null => {
-              if (!manga) return null
-              return {
-                id: manga.id,
-                image: manga.cover || '/images/placeholder.png',
-                type: getMangaType(manga.genres),
-                title: manga.title || 'Unknown',
-                source: sourceRes.source,
-                chapters: [{
-                  info: manga.lastChapter ? `Chap ${manga.lastChapter}` : 'View details',
-                  date: formatDate(manga.year ? String(manga.year) : undefined),
-                  lang: null,
-                  chapterId: manga.id,
-                }],
-              }
-            })
-            .filter(Boolean) as Genre[]
-        }))
+        const items = res.data.map((manga: any): Genre | null => {
+          if (!manga) return null
+          const activeSource = manga.sources?.[0] || manga.source
+          return {
+            id: manga.id,
+            image: manga.cover || '/images/placeholder.png',
+            type: getMangaType(manga.genres),
+            title: manga.title || 'Unknown',
+            source: activeSource,
+            chapters: [{
+              info: manga.lastChapter ? `Chap ${manga.lastChapter}` : 'View details',
+              date: formatDate(manga.year ? String(manga.year) : undefined),
+              lang: null,
+              chapterId: manga.id,
+            }],
+          }
+        }).filter(Boolean) as Genre[]
 
-        setResults(groupedResults)
+        setData(items)
         setLoading(false)
       })
       .catch((err) => {
         console.error('Error fetching search results:', err)
-        setResults([])
+        setData([])
         setLoading(false)
       })
   }, [keyword, source])
@@ -97,28 +93,16 @@ const FilterPage = () => {
                 <h4 className="mb-0">
                   {keyword ? `Search results for "${keyword}"` : 'All Manga'}
                 </h4>
-                <span className="badge bg-secondary">{results.reduce((acc, r) => acc + r.data.length, 0)} results</span>
+                <span className="badge bg-secondary">{data.length} results</span>
               </div>
               
-              {results.map((group) => (
-                <div key={group.source} className="mb-5">
-                  <div className="d-flex align-items-center mb-3">
-                    <h4 className="mb-0 mr-2 text-primary">{group.source.toUpperCase()}</h4>
-                    <span className="badge bg-secondary">{group.data.length} results</span>
-                  </div>
-                  {group.data.length > 0 ? (
-                    <div className="original card-lg">
-                      {group.data.map((item, index) => (
-                        <Card key={item.id || index} item={item} index={index + 1} />
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="py-3 text-muted">No results found for this source.</div>
-                  )}
+              {data.length > 0 ? (
+                <div className="original card-lg">
+                  {data.map((item, index) => (
+                    <Card key={`${item.source}-${item.id}`} item={item} index={index + 1} />
+                  ))}
                 </div>
-              ))}
-
-              {results.length === 0 && !loading && (
+              ) : (
                 <div className="text-center py-5 text-muted">
                   No manga found matching your query.
                 </div>
