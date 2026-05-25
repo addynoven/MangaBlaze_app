@@ -25,6 +25,7 @@ const Content = ({ sourceId }: { sourceId?: string }) => {
               image: manga.cover || '/images/placeholder.png',
               type: getMangaType(manga.genres),
               title: manga.title || 'Unknown',
+              source: source,
               chapters: [{
                 info: manga.lastChapter ? `Chap ${manga.lastChapter}` : 'View details',
                 date: formatDate(manga.year ? String(manga.year) : undefined),

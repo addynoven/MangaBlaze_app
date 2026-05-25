@@ -16,7 +16,7 @@ export async function GET(request: Request) {
     if (!data) {
       return NextResponse.json({ error: "Manga not found" }, { status: 404 })
     }
-    return NextResponse.json(data)
+    return NextResponse.json({ ...data, sourceId })
   } catch (error) {
     console.error("Error fetching manga:", error)
     return NextResponse.json(

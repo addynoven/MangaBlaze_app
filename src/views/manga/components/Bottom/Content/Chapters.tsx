@@ -18,9 +18,10 @@ const commentStyle: CSSProperties = {
 type ChaptersProps = {
   manga: SourceMangaDetail
   chapters: SourceChapter[]
+  sourceId: string
 }
 
-const Chapters = ({ manga, chapters }: ChaptersProps) => {
+const Chapters = ({ manga, chapters, sourceId }: ChaptersProps) => {
   const [tab, setTab] = useState<ENUM_READ_BY>(ENUM_READ_BY.CHAPTER)
 
   const handleChangeTab = (tab: ENUM_READ_BY) => setTab(tab)
@@ -52,7 +53,7 @@ const Chapters = ({ manga, chapters }: ChaptersProps) => {
         </nav>
         <div className="tab-content glass-panel p-3 mt-3" data-name="chapter">
           <ChaptersMenu />
-          <ChapterList tab={tab} manga={manga} chapters={chapters} />
+          <ChapterList tab={tab} manga={manga} chapters={chapters} sourceId={sourceId} />
         </div>
       </section>
       <section className="default-style glass-panel mt-4 p-4">

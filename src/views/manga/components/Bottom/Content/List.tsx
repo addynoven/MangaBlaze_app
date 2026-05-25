@@ -12,6 +12,7 @@ type ChapterListProps = {
   tab: ENUM_READ_BY
   manga: SourceMangaDetail
   chapters: SourceChapter[]
+  sourceId?: string
 }
 
 type ItemProps = {
@@ -105,8 +106,8 @@ function Item(props: ItemProps) {
   )
 }
 
-const ChapterList = ({ tab, manga, chapters }: ChapterListProps) => {
-  const activeSourceId = (manga as { sourceId?: string }).sourceId || getSelectedSource()
+const ChapterList = ({ tab, manga, chapters, sourceId }: ChapterListProps) => {
+  const activeSourceId = sourceId || manga.source || getSelectedSource()
   
   // Only show chapters that are not marked unavailable
   const readableChapters = chapters.filter(

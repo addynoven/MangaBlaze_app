@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { TrendingItem } from '@/utils/manga'
+import { TrendingItem, proxiedImageUrl } from '@/utils/manga'
 
 type TrendingCardProps = {
   item: TrendingItem
@@ -48,7 +48,7 @@ function TrendingCard(props: TrendingCardProps) {
       </div>
       <Link href={`/manga/${item.id}${sourceParam}`} className="poster">
         <div>
-          <img src={item.image} alt={item.title} loading="lazy" referrerPolicy="no-referrer" onError={(e) => { (e.target as HTMLImageElement).src = '/images/placeholder.png' }} />
+          <img src={proxiedImageUrl(item.image)} alt={item.title} loading="lazy" referrerPolicy="no-referrer" onError={(e) => { (e.target as HTMLImageElement).src = '/images/placeholder.png' }} />
         </div>
       </Link>
     </div>

@@ -14,7 +14,9 @@ export default class HentaiFoxExtension extends BaseSource {
 
   async search(query: string, limit = 20): Promise<SourceManga[]> {
     const start = Date.now();
-    const url = `${this.baseUrl}/search/?q=${encodeURIComponent(query)}`;
+    const url = query 
+      ? `${this.baseUrl}/search/?q=${encodeURIComponent(query)}`
+      : this.baseUrl;
     const $ = await this.fetchHTML(url);
     
     const results: SourceManga[] = [];
@@ -81,6 +83,7 @@ export default class HentaiFoxExtension extends BaseSource {
       id: mangaId,
       chapterNumber: '1',
       title: title || 'Full Gallery',
+      volume: null,
       language: 'en',
       pages: parseInt(pageCountStr),
       publishedAt: new Date().toISOString(),

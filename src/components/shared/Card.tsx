@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Genre } from '@/@types/common'
+import { proxiedImageUrl } from '@/utils/manga'
 
 type CardProps = {
   item: Genre & { id?: string }
@@ -12,7 +13,7 @@ type CardProps = {
 const Card = (props: CardProps) => {
   const { item } = props
   const mangaId = item.id || 'unknown'
-  const sourceParam = (item as any).source ? `?source=${(item as any).source}` : ''
+  const sourceParam = item.source ? `?source=${item.source}` : ''
 
   return (
     <div className="unit item-47969">
@@ -23,7 +24,7 @@ const Card = (props: CardProps) => {
         >
           <div>
             <img
-              src={item.image}
+              src={proxiedImageUrl(item.image)}
               alt={item.title}
               loading="lazy"
               referrerPolicy="no-referrer"

@@ -22,6 +22,7 @@ export type Genre = {
   image: string
   type: string
   title: string
+  source?: string
   chapters: {
     info: string
     date: string
@@ -37,12 +38,14 @@ export type GenreTrending = {
   releasing: string
   chapterAndVolume: string
   genres: string[]
+  source?: string
 }
 
 export type Poster = {
   id?: string
   image: string
   title: string
+  source?: string
   link?: string
 }
 

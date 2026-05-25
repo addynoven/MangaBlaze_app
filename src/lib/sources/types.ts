@@ -5,6 +5,7 @@ export interface SourceManga {
   id: string
   title: string
   cover: string
+  source?: string
   status?: string
   year?: number | null
   contentRating?: string

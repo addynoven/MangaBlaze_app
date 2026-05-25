@@ -214,6 +214,7 @@ import { xiutakuSource } from './xiutaku'
 import { xkcdSource } from './xkcd'
 import { xoxocomicSource } from './xoxocomic'
 import { hentaifoxSource } from '../extensions/hentaifox'
+import { nhentaiSource } from '../extensions/nhentai'
 import type { MangaSource } from './types'
 
 export const sources: Record<string, MangaSource> = {
@@ -433,6 +434,7 @@ export const sources: Record<string, MangaSource> = {
   xkcd: xkcdSource,
   xoxocomic: xoxocomicSource,
   hentaifox: hentaifoxSource,
+  nhentai: nhentaiSource,
 }
 
 export const sourceList = Object.values(sources)
@@ -446,3 +448,9 @@ export function getSource(id?: string): MangaSource {
 
 export type { MangaSource, SourceManga, SourceMangaDetail, SourceChapter, SourcePage } from './types'
 export { BaseSource } from './BaseSource'
+
+export { mangadexSource } from './mangadex'
+export { asurascansSource } from './asurascans'
+export { comickSource } from './comick'
+export { hentaifoxSource } from '../extensions/hentaifox'
+export { nhentaiSource } from '../extensions/nhentai'

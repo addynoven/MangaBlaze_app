@@ -9,7 +9,8 @@ export async function GET(request: Request) {
   try {
     const source = getSource(sourceId)
     const data = await source.search("", limit)
-    return NextResponse.json({ data, total: data.length, limit, offset: 0 })
+    const results = (data || []).map(m => ({ ...m, source: sourceId }))
+    return NextResponse.json({ data: results, total: results.length, limit, offset: 0 })
   } catch (error) {
     console.error("Error fetching updated manga:", error)
     return NextResponse.json(

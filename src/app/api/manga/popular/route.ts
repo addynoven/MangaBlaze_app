@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { getSource, mangadexSource } from "@/lib/sources"
+import { getSource } from "@/lib/sources"
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
@@ -9,14 +9,17 @@ export async function GET(request: Request) {
   try {
     if (sourceId === "mangadex") {
       // MangaDex has a dedicated popular endpoint
-      const data = await mangadexSource.search("", limit)
-      return NextResponse.json({ data, total: data.length, limit, offset: 0 })
+      const source = getSource('mangadex')
+      const data = await source.search("", limit)
+      const results = (data || []).map(m => ({ ...m, source: 'mangadex' }))
+      return NextResponse.json({ data: results, total: results.length, limit, offset: 0 })
     }
 
     // Other sources: fall back to generic search (empty query = popular)
     const source = getSource(sourceId)
     const data = await source.search("", limit)
-    return NextResponse.json({ data, total: data.length, limit, offset: 0 })
+    const results = (data || []).map(m => ({ ...m, source: sourceId }))
+    return NextResponse.json({ data: results, total: results.length, limit, offset: 0 })
   } catch (error) {
     console.error("Error fetching popular manga:", error)
     return NextResponse.json(
