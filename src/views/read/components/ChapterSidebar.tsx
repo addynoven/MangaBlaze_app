@@ -23,10 +23,10 @@ const ChapterSidebar = ({ open, onClose, chapters, currentChapterId, mangaId, so
         onClick={onClose}
       />
       
-      <div className={classNames("reader-sidebar", open && "open")}>
-        <div className="p-4 border-bottom border-white/10 d-flex justify-content-between align-items-center bg-[#222]">
-          <h5 className="mb-0 text-white">Chapter List</h5>
-          <button className="btn btn-sm btn-link text-white p-0" onClick={onClose}>
+      <div className={classNames("reader-sidebar glass-panel", open && "open")} style={{ borderRadius: '0' }}>
+        <div className="p-4 border-bottom border-white/10 d-flex justify-content-between align-items-center bg-transparent">
+          <h5 className="mb-0 text-white fw-bold">Chapter List</h5>
+          <button className="btn btn-sm btn-link text-white p-0 hover-scale" onClick={onClose}>
             <i className="fa-solid fa-xmark fa-xl"></i>
           </button>
         </div>

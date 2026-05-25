@@ -51,5 +51,5 @@ export interface MangaSource {
   search(query: string, limit?: number): Promise<SourceManga[]>
   getManga(mangaId: string): Promise<SourceMangaDetail | null>
   getChapters(mangaId: string, limit?: number, offset?: number, lang?: string): Promise<SourceChapter[]>
-  getChapterPages(chapterId: string): Promise<SourcePage[]>
+  getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]>
 }

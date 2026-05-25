@@ -139,7 +139,7 @@ export const mangaheSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const mangaId = chapterId.match(/^(chapter[\d.]+)$/) ? '' : chapterId.split('/')[0]
       const url = mangaId ? `${BASE_URL}/manga/${mangaId}/${chapterId}/` : `${BASE_URL}/${chapterId}/`

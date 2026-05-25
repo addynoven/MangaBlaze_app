@@ -146,7 +146,7 @@ export const assortedscansSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const firstPageUrl = `${BASE_URL}${chapterId}1/`
       const res = await fetch(firstPageUrl, {

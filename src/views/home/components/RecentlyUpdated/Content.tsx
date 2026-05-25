@@ -26,12 +26,12 @@ const Content = ({ sourceId }: { sourceId?: string }) => {
               type: getMangaType(manga.genres),
               title: manga.title || 'Unknown',
               chapters: [{
-                info: manga.lastChapter ? `Chap ${manga.lastChapter}` : 'New chapter',
+                info: manga.lastChapter ? `Chap ${manga.lastChapter}` : 'View details',
                 date: formatDate(manga.year ? String(manga.year) : undefined),
-                lang: null,
+                lang: 'EN',
                 chapterId: manga.id,
               }],
-            }
+            } as any
           })
           .filter(Boolean) as Genre[]
 
@@ -60,7 +60,7 @@ const Content = ({ sourceId }: { sourceId?: string }) => {
       <div className="tab-content" data-name="all">
         <div className="original card-lg">
           {data.map((item, index) => (
-            <Card key={item.id || index} item={item} index={index + 1} />
+            <Card key={`${(item as any).source}-${item.id}`} item={item as any} index={index + 1} />
           ))}
         </div>
       </div>

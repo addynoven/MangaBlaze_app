@@ -166,7 +166,7 @@ export const hachirumiSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const parts = chapterId.split('/')
       if (parts.length < 2) return []

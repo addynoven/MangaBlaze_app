@@ -128,7 +128,7 @@ export const sandraandwooSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const $ = await fetchHTML(`${BASE_URL}/${chapterId}/`)
       const src = $('#comic img').first().attr('src')?.trim()

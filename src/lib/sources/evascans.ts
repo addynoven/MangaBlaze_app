@@ -172,7 +172,7 @@ export const evascansSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     // Eva Scans chapters are login/locked; return empty so UI falls back to externalUrl
     return []
   },

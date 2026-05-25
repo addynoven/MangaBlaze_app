@@ -153,7 +153,7 @@ const Read = ({ slug, lang = 'en', chapter }: ReadProps) => {
     })
 
     const start = Date.now()
-    fetch(`/api/chapter/pages?id=${chapter}&source=${sourceId}`)
+    fetch(`/api/chapter/pages?id=${chapter}&source=${sourceId}&mangaId=${slug}`)
       .then((r) => r.json())
       .then((data) => {
         if (!active) return
@@ -192,7 +192,7 @@ const Read = ({ slug, lang = 'en', chapter }: ReadProps) => {
     return () => {
       active = false
     }
-  }, [chapter, dispatch, sourceId])
+  }, [chapter, dispatch, sourceId, slug])
 
   // Keyboard Shortcuts
   useEffect(() => {
@@ -226,7 +226,7 @@ const Read = ({ slug, lang = 'en', chapter }: ReadProps) => {
   // Prefetch Next Chapter
   useEffect(() => {
     if (pageIndex >= pages.length - 2 && nextChapter && nextChapterPages.length === 0) {
-      fetch(`/api/chapter/pages?id=${nextChapter.id}&source=${sourceId}`)
+      fetch(`/api/chapter/pages?id=${nextChapter.id}&source=${sourceId}&mangaId=${slug}`)
         .then((r) => r.json())
         .then((data) => {
           let imageUrls: string[] = []
@@ -250,7 +250,7 @@ const Read = ({ slug, lang = 'en', chapter }: ReadProps) => {
         })
         .catch(() => {})
     }
-  }, [pageIndex, pages.length, nextChapter, sourceId, nextChapterPages.length])
+  }, [pageIndex, pages.length, nextChapter, sourceId, nextChapterPages.length, slug])
 
   useEffect(() => {
     let active = true

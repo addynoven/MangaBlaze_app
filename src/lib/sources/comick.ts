@@ -153,7 +153,7 @@ export const comickSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const res = await fetch(`${BASE_URL}/chapter/${chapterId}?tachiyomi=true`)
       if (!res.ok) return []

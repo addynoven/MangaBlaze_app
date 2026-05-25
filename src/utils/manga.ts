@@ -24,12 +24,14 @@ export interface TrendingItem {
   releasing: string
   chapterAndVolume: string
   genres: string[]
+  source?: string
 }
 
 export interface PosterItem {
   id: string
   image: string
   title: string
+  source?: string
 }
 
 export function formatDate(dateStr: string | null | undefined): string {
@@ -56,7 +58,7 @@ export function getMangaType(genres?: string[]): string {
   return 'Manga'
 }
 
-export function toTrendingItem(manga: SourceManga): TrendingItem {
+export function toTrendingItem(manga: SourceManga, sourceId?: string): TrendingItem {
   const genres = (manga.genres || []).slice(0, 3)
   const status = manga.status || 'unknown'
   const releasing =
@@ -76,13 +78,15 @@ export function toTrendingItem(manga: SourceManga): TrendingItem {
       ? `Chap ${manga.lastChapter || '?'} - Vol ${manga.lastVolume || '?'}`
       : '',
     genres: genres.length > 0 ? genres : ['Action', 'Adventure'],
+    source: sourceId
   }
 }
 
-export function toPosterItem(manga: SourceManga): PosterItem {
+export function toPosterItem(manga: SourceManga, sourceId?: string): PosterItem {
   return {
     id: manga.id,
     image: manga.cover,
     title: manga.title,
+    source: sourceId
   }
 }

@@ -205,7 +205,7 @@ export const kemonoSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const { service, userId, postId } = parseChapterId(chapterId)
       const detail = await fetchJSON<{

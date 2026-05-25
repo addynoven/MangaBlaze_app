@@ -10,7 +10,7 @@ export async function GET(request: Request) {
       discoverySources.map(async (id) => {
         try {
           const source = getSource(id)
-          const data = await source.getPopular(1, 10) // Get top 10 from each
+          const data = await source.search("", 10) // Get top 10 from each
           return (data || []).map(m => ({ ...m, source: id }))
         } catch (e) {
           return []

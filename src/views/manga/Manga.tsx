@@ -140,10 +140,12 @@ const MangaPage = ({ mangaId, sourceId }: MangaPageProps) => {
           </div>
         </div>
       </div>
-      <div className="container">
-        <div className="main-inner manga-bottom">
+      <div className="container position-relative z-10">
+        <div className="main-inner manga-bottom gap-4 mt-4">
           <ContentBottom manga={manga} chapters={chapters} />
-          <SidebarBottom />
+          <div className="glass-panel p-3">
+            <SidebarBottom />
+          </div>
         </div>
       </div>
     </div>

@@ -151,7 +151,7 @@ export const pornpicsSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const searchUrl = `${BASE_URL}/?q=${encodeURIComponent(chapterId)}`
       const $search = await fetchHTML(searchUrl)

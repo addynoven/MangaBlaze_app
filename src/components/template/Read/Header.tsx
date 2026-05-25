@@ -117,9 +117,7 @@ const Header = () => {
               </button>
               <NavMobile
                 openNav={openNav}
-                toggleMenu={toggleMenu}
                 onCloseNav={handleCloseNav}
-                handleToggle={handleToggle}
               />
             </div>
             <Link href="/home" className="logo">

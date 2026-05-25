@@ -32,7 +32,7 @@ export const ninemangaenSource: MangaSource = {
       return []
     } catch { return [] }
   },
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       /* Site is blocked by Cloudflare; returning empty results */
       return []

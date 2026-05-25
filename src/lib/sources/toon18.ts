@@ -161,10 +161,10 @@ export const toon18Source: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
-      const mangaId = chapterId.split('/')[0]
-      const url = `${BASE_URL}/manga/${mangaId}/${chapterId}/`
+      const finalMangaId = mangaId || chapterId.split('/')[0]
+      const url = `${BASE_URL}/manga/${finalMangaId}/${chapterId}/`
       const $ = await fetchHTML(url)
 
       const pages: SourcePage[] = []

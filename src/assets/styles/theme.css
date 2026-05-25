@@ -1,0 +1,247 @@
+/* Premium Dark Theme Overrides */
+
+:root {
+  --bg-main: #0f172a;
+  --bg-card: #151e2e;
+  --bg-card-hover: #1e293b;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --primary-color: #3b82f6;
+  --primary-glow: rgba(59, 130, 246, 0.5);
+  --border-light: rgba(255, 255, 255, 0.05);
+  --border-glow: rgba(255, 255, 255, 0.15);
+  --gradient-primary: linear-gradient(135deg, #3b82f6, #8b5cf6);
+}
+
+body {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  background-color: var(--bg-main) !important;
+  color: var(--text-main) !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif !important;
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  background: rgba(21, 30, 46, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+}
+
+.glass-header {
+  background: rgba(15, 23, 42, 0.7) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-light);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.glass-pill {
+  background: rgba(21, 30, 46, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-light);
+  border-radius: 9999px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Base Card Overrides */
+.card, .bg-secondary-subtle {
+  background-color: var(--bg-card) !important;
+  border: 1px solid var(--border-light) !important;
+  border-radius: 12px;
+  color: var(--text-main) !important;
+}
+
+/* Input & Search */
+.form-control, .search-container {
+  background-color: rgba(255,255,255,0.05) !important;
+  border: 1px solid var(--border-light) !important;
+  color: var(--text-main) !important;
+  border-radius: 10px;
+}
+.form-control:focus {
+  background-color: rgba(255,255,255,0.08) !important;
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25) !important;
+}
+
+/* Primary Buttons */
+.btn-primary, .btn-primary2 {
+  background: var(--gradient-primary) !important;
+  border: none !important;
+  border-radius: 8px;
+  font-weight: 600;
+  color: white !important;
+  box-shadow: 0 4px 15px var(--primary-glow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+.btn-primary:hover, .btn-primary2:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--primary-glow);
+  filter: brightness(1.1);
+}
+
+.text-glow {
+  text-shadow: 0 0 10px var(--primary-glow);
+}
+
+/* Global Animations */
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Utilities */
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+/* Manga Cards (.unit .inner) */
+.original .unit .inner {
+  background-color: var(--bg-card) !important;
+  border: 1px solid var(--border-light) !important;
+  border-radius: 16px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  overflow: hidden;
+  position: relative;
+}
+.original .unit .inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: var(--gradient-primary);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.original .unit .inner:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.4) !important;
+}
+.original .unit .inner:hover::before {
+  opacity: 1;
+}
+.original .unit .poster img {
+  border-radius: 12px !important;
+  transition: transform 0.3s ease !important;
+}
+.original .unit .inner:hover .poster img {
+  transform: scale(1.05);
+}
+.original .unit .info a {
+  color: var(--text-main) !important;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+.original .unit .info a:hover {
+  color: var(--primary-color) !important;
+}
+
+/* Manga Detail Hero */
+.manga-detail {
+  position: relative;
+  background: transparent !important;
+}
+.manga-detail .detail-bg {
+  filter: none !important;
+}
+.manga-detail .detail-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(15,23,42,0.4) 0%, var(--bg-main) 100%);
+  pointer-events: none;
+}
+.manga-detail .detail-bg > img {
+  opacity: 0.4 !important;
+  filter: blur(20px) saturate(1.5) !important;
+  transform: scale(1.1);
+}
+.manga-detail aside.content {
+  background: transparent !important;
+}
+.manga-detail .info h1 {
+  background: linear-gradient(135deg, #fff, #94a3b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+/* Skeleton Loading */
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-card-hover) 50%, var(--bg-card) 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+  border-radius: 8px;
+}
+
+/* Reader Mode Theater Experience */
+.theme-dark {
+  background-color: #000000 !important;
+}
+.theme-dark #header,
+.theme-dark .reader-floating-btn {
+  background-color: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(10px);
+  border-color: rgba(255,255,255,0.05) !important;
+}
+.theme-dark .manga-pages-container img {
+  box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+}
+
+.reader-floating-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(21, 30, 46, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-light);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none !important;
+}
+
+.reader-floating-btn:hover {
+  transform: scale(1.1);
+  background: rgba(30, 41, 59, 0.9);
+  color: #fff;
+}
+
+.reader-floating-btn.primary {
+  background: var(--primary-color);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 15px var(--primary-glow);
+}
+
+.reader-floating-btn.primary:hover {
+  background: #2563eb;
+  transform: scale(1.1);
+}

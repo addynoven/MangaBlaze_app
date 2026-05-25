@@ -147,7 +147,7 @@ export const honkaiimpact3Source: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const url = `${BASE_URL}/book/${chapterId}`
       const $ = await fetchHTML(url)

@@ -188,7 +188,7 @@ export const mangadistrictSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const url = `${BASE_URL}/series/${chapterId}/`
       const $ = await fetchHTML(url)

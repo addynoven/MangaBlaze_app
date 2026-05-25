@@ -105,7 +105,7 @@ export const auroraSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const $ = await fetchHTML(`${BASE_URL}/aurora/${chapterId}/`)
       const src = $('[class*="webcomicmedia"] img').attr('src')

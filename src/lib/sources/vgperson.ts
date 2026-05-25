@@ -142,7 +142,7 @@ export const vgpersonSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const [mangaId, chapterNum] = chapterId.split('|')
       if (!mangaId || !chapterNum) return []

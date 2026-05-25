@@ -217,7 +217,7 @@ export const hentaraSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const url = `${BASE_URL}/manhwa/${chapterId}`
       const $ = await fetchHTML(url)

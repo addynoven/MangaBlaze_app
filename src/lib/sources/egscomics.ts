@@ -101,7 +101,7 @@ export const egscomicsSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const $ = await fetchHTML(`${BASE_URL}/comic/${chapterId}`)
       const src = $('#cc-comic').attr('src')

@@ -257,7 +257,7 @@ export const nhentaicomSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const url = `${BASE_URL}/api/comics/${chapterId}/images`
       const data = await fetchJSON<NHImagesResponse>(url)

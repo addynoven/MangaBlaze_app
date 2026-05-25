@@ -50,12 +50,12 @@ const Chapters = ({ manga, chapters }: ChaptersProps) => {
             Volume
           </button>
         </nav>
-        <div className="tab-content" data-name="chapter">
+        <div className="tab-content glass-panel p-3 mt-3" data-name="chapter">
           <ChaptersMenu />
           <ChapterList tab={tab} manga={manga} chapters={chapters} />
         </div>
       </section>
-      <section className="default-style">
+      <section className="default-style glass-panel mt-4 p-4">
         <div className="head">
           <h2>Comment</h2>
         </div>

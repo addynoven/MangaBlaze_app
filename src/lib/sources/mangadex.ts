@@ -238,7 +238,7 @@ export const mangadexSource: MangaSource = {
     return res.data.map(normalizeChapter)
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     const res = await fetchMD<{
       result: string
       baseUrl: string

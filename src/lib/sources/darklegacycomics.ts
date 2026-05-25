@@ -111,7 +111,7 @@ export const darklegacycomicsSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const $ = await fetchHTML(`${BASE_URL}/${chapterId}`)
       const img = $('img[src^="comics/"]').first()

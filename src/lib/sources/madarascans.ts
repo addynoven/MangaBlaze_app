@@ -161,10 +161,10 @@ export const madarascansSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
-      const mangaId = chapterId.split('/')[0]
-      const url = `${BASE_URL}/series/${mangaId}/${chapterId}/`
+      const finalMangaId = mangaId || chapterId.split('/')[0]
+      const url = `${BASE_URL}/series/${finalMangaId}/${chapterId}/`
       const $ = await fetchHTML(url)
 
       const pages: SourcePage[] = []

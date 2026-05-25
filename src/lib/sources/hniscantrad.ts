@@ -129,7 +129,7 @@ export const hniscantradSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const apiUrl = `${BASE_URL}/api${chapterId}`
       const data = await fetchJSON<HNIReadResponse>(apiUrl)

@@ -101,7 +101,7 @@ export const blastwaveSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const $ = await fetchHTML(`${BASE_URL}/index.php?p=comic&nro=${chapterId}`)
       const pages: SourcePage[] = []

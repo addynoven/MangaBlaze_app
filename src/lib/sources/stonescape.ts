@@ -121,7 +121,7 @@ export const stonescapeSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const pagesUrl = `${BASE_URL}/api/chapters/${chapterId}/pages`
       const res = await fetchJSON(pagesUrl)

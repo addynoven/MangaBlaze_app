@@ -66,10 +66,11 @@ const Library = () => {
               libraryStatus: m.status,
               chapters: m.progress ? [{
                 info: `Read: Ch. ${m.progress.chapterNumber}`,
-                date: new Date(m.progress.updatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+                date: new Date(m.progress.updatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                lang: 'EN',
                 chapterId: m.progress.chapterId
-              }] : []
-            }))
+              }] : undefined
+            } as any))
             setApiData(items)
           }
           setLoading(false)
@@ -103,13 +104,15 @@ const Library = () => {
     return localBookmarks.map(m => ({
       ...m,
       image: m.cover,
+      type: 'Manga',
       libraryStatus: m.status || 'reading',
       chapters: m.lastReadChapter ? [{
         info: `Read: Ch. ${m.lastReadChapter}`,
         date: m.updatedAt ? new Date(m.updatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Recently',
+        lang: 'EN',
         chapterId: m.lastReadChapterId || ''
       }] : []
-    })) as LibraryManga[]
+    } as any)) as LibraryManga[]
   }, [signedIn, localBookmarks])
 
   const allData = signedIn ? apiData : localData
@@ -222,7 +225,7 @@ const Library = () => {
         </div>
       </div>
 
-      <div className="nav nav-pills mb-5 flex-nowrap overflow-auto pb-2 custom-scrollbar">
+      <div className="nav nav-pills mb-5 flex-nowrap overflow-auto pb-2 custom-scrollbar p-2 glass-panel" style={{ width: 'fit-content', borderRadius: '16px' }}>
         {statuses.map(s => {
           const count = allData.filter(item => item.libraryStatus === s.id).length
           const hasUpdate = allData.some(item => item.libraryStatus === s.id && unreadUpdates.includes(item.id as string))
@@ -230,18 +233,24 @@ const Library = () => {
             <button
               key={s.id}
               className={classNames(
-                "nav-link position-relative mr-2 px-4 py-2 transition-all", 
-                activeTab === s.id ? "active bg-primary shadow-sm" : "bg-secondary-subtle text-muted"
+                "nav-link position-relative px-4 py-2 mx-1 transition-all border-0", 
+                activeTab === s.id ? "active shadow-sm" : "text-muted hover-opacity"
               )}
               onClick={() => setActiveTab(s.id)}
-              style={{ borderRadius: 20, whiteSpace: 'nowrap', fontWeight: activeTab === s.id ? 600 : 400 }}
+              style={{ 
+                borderRadius: '12px', 
+                whiteSpace: 'nowrap', 
+                fontWeight: activeTab === s.id ? 600 : 500,
+                background: activeTab === s.id ? 'var(--primary-color)' : 'transparent',
+                color: activeTab === s.id ? '#fff' : undefined
+              }}
             >
               {s.id === 'stats' ? (
                  <i className="fa-solid fa-chart-simple mr-2"></i>
               ) : null}
-              {s.label} {s.id !== 'stats' ? `(${count})` : ''}
+              {s.label} {s.id !== 'stats' ? <span className="opacity-75 small ml-1">({count})</span> : ''}
               {hasUpdate && (
-                <span className="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle shadow-sm">
+                <span className="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle shadow-sm">
                   <span className="visually-hidden">New updates</span>
                 </span>
               )}
@@ -294,7 +303,7 @@ const Library = () => {
           ) : filteredData.length > 0 ? (
             <div className="original card-lg">
               {filteredData.map((item, index) => (
-                <Card key={`${item.source}-${item.id}`} item={item} index={index + 1} />
+                <Card key={`${(item as any).source}-${item.id}`} item={item as any} index={index + 1} />
               ))}
             </div>
           ) : (

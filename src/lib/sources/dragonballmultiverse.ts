@@ -98,7 +98,7 @@ export const dragonballmultiverseSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const $ = await fetchHTML(`${BASE_URL}/en/page-${chapterId}.html`)
       const img = $('#balloonsimg img').first()

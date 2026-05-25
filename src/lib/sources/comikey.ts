@@ -196,7 +196,7 @@ export const comikeySource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     // Comikey uses a proprietary reader (gate.epub.rocks) - pages are not scrapable
     return []
   },

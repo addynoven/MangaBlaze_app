@@ -4,6 +4,7 @@ import { getSource } from "@/lib/sources"
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const id = searchParams.get("id")
+  const mangaId = searchParams.get("mangaId") || undefined
   const sourceId = searchParams.get("source") || "mangadex"
 
   if (!id) {
@@ -12,7 +13,7 @@ export async function GET(request: Request) {
 
   try {
     const source = getSource(sourceId)
-    const data = await source.getChapterPages(id)
+    const data = await source.getChapterPages(id, mangaId)
     return NextResponse.json({
       baseUrl: "",
       hash: "",

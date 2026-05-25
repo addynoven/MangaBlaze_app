@@ -12,7 +12,7 @@ type CardProps = {
 const Card = (props: CardProps) => {
   const { item } = props
   const mangaId = item.id || 'unknown'
-  const sourceParam = item.source ? `?source=${item.source}` : ''
+  const sourceParam = (item as any).source ? `?source=${(item as any).source}` : ''
 
   return (
     <div className="unit item-47969">

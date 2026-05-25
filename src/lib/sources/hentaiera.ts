@@ -132,7 +132,7 @@ export const hentaieraSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       // HentaiEra galleries are single-chapter; chapterId is the gallery ID
       const mangaId = chapterId

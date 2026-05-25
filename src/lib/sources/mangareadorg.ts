@@ -160,12 +160,12 @@ export const mangareadorgSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const parts = chapterId.split('/')
-      const mangaId = parts[0]
+      const finalMangaId = mangaId || parts[0]
       const slug = parts[1] || chapterId
-      const url = `${BASE_URL}/manga/${mangaId}/${slug}/`
+      const url = `${BASE_URL}/manga/${finalMangaId}/${slug}/`
       const $ = await fetchHTML(url)
 
       const pages: SourcePage[] = []

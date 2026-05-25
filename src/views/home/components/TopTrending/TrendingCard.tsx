@@ -8,6 +8,8 @@ type TrendingCardProps = {
 
 function TrendingCard(props: TrendingCardProps) {
   const { item, index } = props
+  const sourceParam = item.source ? `?source=${item.source}` : ''
+
   return (
     <div className="swiper-inner">
       <div className="bookmark">
@@ -25,7 +27,7 @@ function TrendingCard(props: TrendingCardProps) {
       <div className="info">
         <div className="above">
           <span>{item.releasing}</span>
-          <Link className="unit" href={`/manga/${item.id}`}>
+          <Link className="unit" href={`/manga/${item.id}${sourceParam}`}>
             {item.title}
           </Link>
         </div>
@@ -44,7 +46,7 @@ function TrendingCard(props: TrendingCardProps) {
           </div>
         </div>
       </div>
-      <Link href={`/manga/${item.id}`} className="poster">
+      <Link href={`/manga/${item.id}${sourceParam}`} className="poster">
         <div>
           <img src={item.image} alt={item.title} loading="lazy" referrerPolicy="no-referrer" onError={(e) => { (e.target as HTMLImageElement).src = '/images/placeholder.png' }} />
         </div>

@@ -152,7 +152,7 @@ export const vizSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     // VIZ uses a proprietary HTML5 reader - pages are not scrapable
     return []
   },

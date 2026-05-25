@@ -212,8 +212,8 @@ const ContentTop = ({ manga, chapters, sourceId, resolvedSources = [], onSwitchS
           <img src={cover} alt={title} loading="lazy" referrerPolicy="no-referrer" />
         </div>
       </div>
-      <div className="info">
-        <p>{statusLabel}</p>
+      <div className="info glass-panel p-4" style={{ marginTop: '-40px', position: 'relative', zIndex: 10, borderRadius: '24px' }}>
+        <p className="badge bg-primary px-3 py-2 text-uppercase letter-spacing-1">{statusLabel}</p>
         <h1>{title}</h1>
         <h6>{title}</h6>
         <div className="actions">

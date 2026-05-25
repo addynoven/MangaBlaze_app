@@ -136,14 +136,14 @@ export const mangafreakSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const parts = chapterId.split('/')
       if (parts.length !== 2) return []
-      const mangaId = parts[0]
+      const finalMangaId = mangaId || parts[0]
       const chapterNumber = parts[1]
 
-      const url = `${BASE_URL}/Read1_${mangaId}_${chapterNumber}`
+      const url = `${BASE_URL}/Read1_${finalMangaId}_${chapterNumber}`
       const $ = await fetchHTML(url)
 
       const pages: SourcePage[] = []

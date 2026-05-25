@@ -113,7 +113,7 @@ export const digitalcomicmuseumSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const parts = chapterId.split(':')
       const did = parts[1] || ''

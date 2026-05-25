@@ -118,7 +118,7 @@ export const peppercarrotSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const $ = await fetchHTML(`${BASE_URL}/en/webcomic/${chapterId}.html`)
       const src = $('img.comicpage').first().attr('src')?.trim()

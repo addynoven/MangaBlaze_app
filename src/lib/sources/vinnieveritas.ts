@@ -68,7 +68,7 @@ export const vinnieveritasSource: MangaSource = {
     return chapters.slice(0, limit)
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const url = `${BASE_URL}/CCC${chapterId}.php`
       const $ = await fetchHTML(url)

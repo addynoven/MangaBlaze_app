@@ -46,7 +46,7 @@ const FilterPage = () => {
           year?: number;
           sources?: string[];
           source?: string;
-        }): Genre | null => {
+        }) => {
           if (!manga) return null
           const activeSource = manga.sources?.[0] || manga.source || 'mangadex'
           return {
@@ -58,10 +58,10 @@ const FilterPage = () => {
             chapters: [{
               info: manga.lastChapter ? `Chap ${manga.lastChapter}` : 'View details',
               date: formatDate(manga.year ? String(manga.year) : undefined),
-              lang: null,
-              chapterId: manga.id,
+              lang: 'EN',
+              chapterId: manga.lastChapter || '1'
             }],
-          }
+          } as any
         }).filter(Boolean) as Genre[]
 
         setData(items)
@@ -124,7 +124,7 @@ const FilterPage = () => {
               {data.length > 0 ? (
                 <div className="original card-lg">
                   {data.map((item, index) => (
-                    <Card key={`${item.source}-${item.id}`} item={item} index={index + 1} />
+                    <Card key={`${(item as any).source}-${item.id}`} item={item} index={index + 1} />
                   ))}
                 </div>
               ) : (

@@ -117,12 +117,12 @@ export const holonomertiaSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const parts = chapterId.split('/')
-      const mangaId = parts[0]
+      const finalMangaId = mangaId || parts[0]
       const ep = parts[1] || chapterId
-      const url = `${BASE_URL}/alt/holonometria/manga/${mangaId}/${ep}/`
+      const url = `${BASE_URL}/alt/holonometria/manga/${finalMangaId}/${ep}/`
       const $ = await fetchHTML(url)
 
       const pages: SourcePage[] = []

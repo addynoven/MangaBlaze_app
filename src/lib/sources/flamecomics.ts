@@ -175,7 +175,7 @@ export const flamecomicsSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const [seriesId, token] = chapterId.split('/')
       if (!seriesId || !token) return []

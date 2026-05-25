@@ -161,7 +161,7 @@ export const mangasushiSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       // Chapter images are loaded via AJAX on this site
       return []

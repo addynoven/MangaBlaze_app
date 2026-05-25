@@ -90,9 +90,9 @@ const Header = () => {
 
   return (
     <>
-      <header id="header" style={openSearch ? { backdropFilter: 'none' } : {}}>
+      <header id="header" className="position-fixed top-0 w-100 z-50 transition-all pt-3" style={openSearch ? { backdropFilter: 'none', background: 'transparent' } : { background: 'transparent' }}>
         <div className="container">
-          <div className="component">
+          <div className="component glass-pill px-4 py-2 d-flex align-items-center justify-content-between">
             <div ref={navRef}>
               <button
                 id="nav-menu-btn"

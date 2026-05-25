@@ -78,7 +78,7 @@ export const darthsdroidsSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const url = `${BASE_URL}/episodes/${chapterId.padStart(4, '0')}.html`
       const $ = await fetchHTML(url)

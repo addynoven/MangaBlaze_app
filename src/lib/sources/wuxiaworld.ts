@@ -203,7 +203,7 @@ export const wuxiaworldSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       // chapterId is in format "manga-slug/chapter-slug"
       const url = `${BASE_URL}/novel/${chapterId}/`

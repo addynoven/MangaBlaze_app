@@ -156,7 +156,7 @@ export const timelesstoonsSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const $ = await fetchHTML(`${BASE_URL}/chapter/${chapterId}/`)
       const pages: SourcePage[] = []

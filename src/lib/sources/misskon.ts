@@ -153,7 +153,7 @@ export const misskonSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const baseUrl = `${BASE_URL}/${chapterId}/`
       const $first = await fetchHTML(baseUrl)

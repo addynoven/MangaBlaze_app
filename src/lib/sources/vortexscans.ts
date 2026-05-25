@@ -158,7 +158,7 @@ export const vortexscansSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       // chapterId includes the series slug, e.g. "reincarnator's-stream/chapter-1"
       const url = `${BASE_URL}/series/${chapterId}`

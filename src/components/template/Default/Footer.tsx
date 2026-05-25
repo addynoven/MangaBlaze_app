@@ -13,34 +13,28 @@ const Footer = () => {
           <p className="mb-0">Go to Surface</p>
         </button>
       </div>
-      <div className="wrap">
+      <div className="wrap border-top border-white/5 bg-secondary-subtle py-5">
         <div className="container">
-          <div className="inner">
-            <div>
-              <div className="logo">
-                <img src="/logo.png" alt="MangaFire" />
+          <div className="inner d-flex flex-column flex-md-row justify-content-between align-items-center gap-4">
+            <div className="text-center text-md-start">
+              <div className="logo mb-3">
+                <img src="/logo.png" alt="MangaBlaze" style={{ height: 40 }} className="filter-brightness-125" />
               </div>
-              <p>© 2023 MangaFire.vercel.app</p>
+              <p className="text-muted small mb-0">© 2026 MangaBlaze</p>
             </div>
-            <nav>
-              <Link href="https://discord.com/invite/KRQQKzQ6CS" target="_blank">
-                <i className="fa-brands fa-discord"></i>
-              </Link>
-              <Link href="https://www.reddit.com/r/Mangafire/" target="_blank">
-                <i className="fa-brands fa-reddit-alien"></i>
-              </Link>
-              <ul>
-                <li>
-                  <Link href="contact">Contact Us</Link>
-                </li>
-                <li>
-                  <Link href="terms">Terms of service</Link>
-                </li>
-                <li>
-                  <Link data-toggle="modal" data-target="#request" href="#">
-                    Request
-                  </Link>
-                </li>
+            <nav className="d-flex flex-column flex-md-row align-items-center gap-4">
+              <div className="social-links d-flex gap-3">
+                <Link href="https://discord.gg/" target="_blank" className="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center" style={{ width: 40, height: 40 }}>
+                  <i className="fa-brands fa-discord"></i>
+                </Link>
+                <Link href="https://reddit.com/" target="_blank" className="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center" style={{ width: 40, height: 40 }}>
+                  <i className="fa-brands fa-reddit-alien"></i>
+                </Link>
+              </div>
+              <ul className="d-flex gap-3 list-unstyled mb-0 m-0 p-0 text-muted small">
+                <li><Link href="contact" className="text-decoration-none hover-text-white transition-all">Contact Us</Link></li>
+                <li><Link href="terms" className="text-decoration-none hover-text-white transition-all">Terms of service</Link></li>
+                <li><Link data-toggle="modal" data-target="#request" href="#" className="text-decoration-none hover-text-white transition-all">Request</Link></li>
               </ul>
             </nav>
           </div>

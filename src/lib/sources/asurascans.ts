@@ -154,12 +154,12 @@ export const asurascansSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const parts = chapterId.split('/')
-      const mangaId = parts[0]
+      const finalMangaId = mangaId || parts[0]
       const chapterNum = parts[1] || chapterId
-      const url = `${BASE_URL}/comics/${mangaId}/chapter/${chapterNum}`
+      const url = `${BASE_URL}/comics/${finalMangaId}/chapter/${chapterNum}`
       const $ = await fetchHTML(url)
 
       const pages: SourcePage[] = []

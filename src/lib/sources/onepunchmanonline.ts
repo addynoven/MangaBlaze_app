@@ -131,7 +131,7 @@ export const onepunchmanonlineSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const comics = await fetchJSON<WPComic[]>(`${API_URL}?slug=${encodeURIComponent(chapterId)}&per_page=1`)
       if (!comics.length) return []

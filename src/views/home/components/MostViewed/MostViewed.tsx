@@ -19,7 +19,7 @@ const MostViewed = ({ sourceId }: { sourceId?: string }) => {
       .then((res) => res.json())
       .then((res) => {
         const latency = Date.now() - start
-        const items = res.data?.map(toPosterItem) || []
+        const items = res.data?.map((m: any) => toPosterItem(m, source)) || []
         reportSourceHealth(source, items.length > 0, latency)
         setData(items)
         setLoading(false)

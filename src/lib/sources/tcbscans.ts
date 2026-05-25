@@ -139,7 +139,7 @@ export const tcbscansSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       // Need to find the chapter path
       const $projects = await fetchHTML(`${BASE_URL}/projects`)

@@ -177,7 +177,7 @@ export const hadescansSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     // Hades Scans chapters are premium/locked; return empty so UI falls back to externalUrl
     return []
   },

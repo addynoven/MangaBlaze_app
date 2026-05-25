@@ -166,14 +166,14 @@ export const grabberzoneSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       // chapterId format: "manga-slug/chapter-slug" — we need to find the manga slug
       const parts = chapterId.split('/')
       if (parts.length !== 2) return []
-      const mangaId = parts[0]
+      const finalMangaId = mangaId || parts[0]
       const chapterSlug = parts[1]
-      const url = `${BASE_URL}/comics/${mangaId}/${chapterSlug}/`
+      const url = `${BASE_URL}/comics/${finalMangaId}/${chapterSlug}/`
       const $ = await fetchHTML(url)
 
       const pages: SourcePage[] = []

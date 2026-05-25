@@ -169,7 +169,7 @@ export const manhwaclubSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       // chapterId from getChapters is like "chapter-15" — we need to find which manga it belongs to
       // The chapter pages URL pattern is: /manga/{mangaId}/{chapterId}/

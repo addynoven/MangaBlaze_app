@@ -31,9 +31,10 @@ const Discovery = () => {
             chapters: [{
               info: m.lastChapter ? `Chap ${m.lastChapter}` : 'View details',
               date: formatDate(m.year ? String(m.year) : undefined),
+              lang: 'EN',
               chapterId: m.id
             }]
-          }))
+          } as any))
           setData(items)
         }
         setLoading(false)
@@ -52,7 +53,7 @@ const Discovery = () => {
       <Loading loading={loading} type="gif">
         <div className="original card-lg">
           {data.map((item, index) => (
-            <Card key={`${item.source}-${item.id}`} item={item} index={index + 1} />
+            <Card key={`${(item as any).source}-${item.id}`} item={item as any} index={index + 1} />
           ))}
         </div>
       </Loading>

@@ -15,6 +15,20 @@ interface SourceHealthData {
   lastError?: string
 }
 
+const getGradient = (name: string) => {
+  let hash = 0
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash)
+  }
+  const color1 = `hsl(${Math.abs(hash % 360)}, 70%, 60%)`
+  const color2 = `hsl(${Math.abs((hash + 40) % 360)}, 70%, 40%)`
+  return `linear-gradient(135deg, ${color1}, ${color2})`
+}
+
+const getInitials = (name: string) => {
+  return name.substring(0, 2).toUpperCase()
+}
+
 const Browse = () => {
   const [search, setSearch] = useState('')
   const [healthData, setHealthData] = useState<Record<string, SourceHealthData>>({})
@@ -36,9 +50,15 @@ const Browse = () => {
       .catch(() => {})
   }, [])
 
-  const filteredSources = sourceList.filter((source) =>
-    source.name.toLowerCase().includes(search.toLowerCase())
-  )
+  const filteredSources = sourceList
+    .filter((source) => source.name.toLowerCase().includes(search.toLowerCase()))
+    .sort((a, b) => {
+      const aPinned = pinnedSources.includes(a.id)
+      const bPinned = pinnedSources.includes(b.id)
+      if (aPinned && !bPinned) return -1
+      if (!aPinned && bPinned) return 1
+      return a.name.localeCompare(b.name)
+    })
 
   const handleTogglePin = (e: React.MouseEvent, id: string) => {
     e.preventDefault()
@@ -47,63 +67,164 @@ const Browse = () => {
   }
 
   return (
-    <div className="container py-4">
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2 className="mb-0">Browse Sources</h2>
-        <div className="search-box">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search sources..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+    <div className="container py-5">
+      <style>{`
+        .source-card {
+          background-color: var(--bg-card);
+          border: 1px solid var(--border-light);
+          border-radius: 16px;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          overflow: hidden;
+          position: relative;
+        }
+        .source-card::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: 16px;
+          padding: 2px;
+          background: var(--gradient-primary);
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+        .source-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
+        .source-card:hover::before {
+          opacity: 1;
+        }
+        .source-avatar {
+          width: 50px;
+          height: 50px;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 700;
+          font-size: 1.2rem;
+          color: white;
+          text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+          box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .search-container {
+          background: #151e2e;
+          border-radius: 12px;
+          padding: 0.5rem;
+          border: 1px solid rgba(255,255,255,0.05);
+        }
+        .search-container input {
+          background: transparent !important;
+          border: none !important;
+          color: white !important;
+          box-shadow: none !important;
+        }
+        .status-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          display: inline-block;
+          box-shadow: 0 0 8px currentColor;
+        }
+        .pin-btn {
+          width: 32px;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 8px;
+          transition: background 0.2s;
+        }
+        .pin-btn:hover {
+          background: rgba(255,255,255,0.1);
+        }
+      `}</style>
+
+      <div className="row align-items-center mb-5">
+        <div className="col-md-6 mb-3 mb-md-0">
+          <h2 className="mb-1 fw-bold">
+            <span className="text-primary">Manga</span> Sources
+          </h2>
+          <p className="text-muted mb-0">Browse and manage your reading extensions</p>
+        </div>
+        <div className="col-md-6">
+          <div className="search-container glass-panel d-flex align-items-center px-3 py-1">
+            <i className="fa-solid fa-magnifying-glass text-muted"></i>
+            <input
+              type="text"
+              className="form-control bg-transparent border-0 text-white shadow-none focus-ring-0"
+              placeholder="Search by name or type..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
         </div>
       </div>
       
-      <div className="row g-3 animate-fade-in">
+      <div className="row g-4 animate-fade-in">
         {filteredSources.map((source) => {
           const isPinned = pinnedSources.includes(source.id)
           const health = healthData[source.id]
           const status = health?.status || 'unknown'
 
           return (
-            <div key={source.id} className="col-6 col-md-4 col-lg-3">
+            <div key={source.id} className="col-12 col-md-6 col-lg-4 col-xl-3">
               <div className="position-relative h-100">
                 <Link 
                   href={`/browse/${source.id}`}
-                  className="card h-100 text-decoration-none bg-secondary-subtle hover-shadow"
+                  className="card source-card text-decoration-none h-100"
                 >
-                  <div className="card-body d-flex flex-column justify-content-center align-items-center p-4">
-                    <div className="source-icon mb-2 position-relative">
-                       <i className="fa-regular fa-globe fa-2xl"></i>
-                       <span 
-                         className={classNames(
-                           "position-absolute bottom-0 end-0 p-1 border border-light rounded-circle",
-                           status === 'online' ? 'bg-success' : status === 'offline' ? 'bg-danger' : status === 'slow' ? 'bg-warning' : 'bg-secondary'
-                         )}
-                         style={{ width: 12, height: 12 }}
-                         title={`Status: ${status}`}
-                       ></span>
+                  <div className="card-body p-4">
+                    <div className="d-flex justify-content-between align-items-start mb-3">
+                      <div className="source-avatar" style={{ background: getGradient(source.name) }}>
+                        {getInitials(source.name)}
+                      </div>
+                      <div className="d-flex flex-column align-items-end">
+                        <span className={classNames(
+                          "badge mb-2",
+                          source.type === 'api' ? 'bg-primary' : 'bg-secondary text-white'
+                        )}>
+                          {source.type.toUpperCase()}
+                        </span>
+                        <div className="d-flex align-items-center gap-2 small">
+                          {(health?.lastLatency ?? 0) > 0 && (
+                            <span className="text-muted">
+                              <i className="fa-solid fa-bolt-lightning text-warning mr-1"></i>
+                              {health?.lastLatency}ms
+                            </span>
+                          )}
+                          <span 
+                            className={classNames(
+                              "status-dot",
+                              status === 'online' ? 'bg-success text-success' : 
+                              status === 'offline' ? 'bg-danger text-danger' : 
+                              status === 'slow' ? 'bg-warning text-warning' : 'bg-secondary text-secondary'
+                            )}
+                            title={`Status: ${status}`}
+                          ></span>
+                        </div>
+                      </div>
                     </div>
-                    <h5 className="card-title text-center mb-0 text-white">{source.name}</h5>
-                    <div className="d-flex align-items-center mt-2 gap-2">
-                       <span className="badge bg-primary">{source.type}</span>
-                       {(health?.lastLatency ?? 0) > 0 && (
-                         <span className="text-muted small">
-                           <i className="fa-solid fa-bolt-lightning fa-xs mr-1"></i>
-                           {health?.lastLatency}ms
-                         </span>
-                       )}
-                    </div>
+                    
+                    <h5 className="card-title mb-1 text-white fw-bold text-truncate" title={source.name}>
+                      {source.name}
+                    </h5>
+                    <p className="text-muted small mb-0">
+                      {isPinned ? 'Pinned to library' : 'Available extension'}
+                    </p>
                   </div>
                 </Link>
+                
                 <button
                   onClick={(e) => handleTogglePin(e, source.id)}
                   className={classNames(
-                    "btn btn-sm position-absolute top-0 end-0 m-2",
+                    "btn btn-link pin-btn position-absolute text-decoration-none",
                     isPinned ? "text-primary" : "text-muted"
                   )}
+                  style={{ bottom: '16px', right: '16px' }}
                   title={isPinned ? "Unpin source" : "Pin source"}
                 >
                   <i 

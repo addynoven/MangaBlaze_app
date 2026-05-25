@@ -31,9 +31,10 @@ const Updates = () => {
             chapters: [{
               info: `Chap ${item.latestChapter.chapterNumber}`,
               date: new Date(item.latestChapter.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+              lang: 'EN',
               chapterId: item.latestChapter.id
             }]
-          }))
+          } as any))
           setData(items)
         }
         setLoading(false)
@@ -58,18 +59,22 @@ const Updates = () => {
 
   return (
     <div className="container py-4">
-      <h2 className="mb-4">Recent Updates</h2>
+      <h2 className="mb-4 fw-bold">
+        <span className="text-primary">Recent</span> Updates
+      </h2>
       <Loading loading={loading} type="gif">
         {mappedData.length > 0 ? (
           <div className="original card-lg">
             {mappedData.map((item, index) => (
-              <Card key={item.id || index} item={item} index={index + 1} />
+              <Card key={`${(item as any).source}-${item.id}`} item={item as any} index={index + 1} />
             ))}
           </div>
         ) : (
-          <div className="text-center py-5 bg-secondary-subtle rounded">
-             <i className="fa-regular fa-clock fa-3xl mb-3 text-muted"></i>
-             <h3>No recent updates</h3>
+          <div className="text-center py-5 glass-panel animate-fade-in mx-auto" style={{ maxWidth: '500px' }}>
+             <div className="mb-4">
+               <i className="fa-solid fa-clock-rotate-left text-primary" style={{ fontSize: '4rem', filter: 'drop-shadow(0 0 15px rgba(59,130,246,0.5))' }}></i>
+             </div>
+             <h3 className="fw-bold mb-2">No recent updates</h3>
              <p className="text-muted">New chapters from your bookmarked manga will appear here.</p>
           </div>
         )}

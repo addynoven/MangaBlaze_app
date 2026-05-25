@@ -39,7 +39,7 @@ export function injectReducer<S>(key: string, reducer: Reducer<S, Action>) {
     if (store.asyncReducers[key]) {
       return false
     }
-    store.asyncReducers[key] = reducer
+    store.asyncReducers[key] = reducer as any
     store.replaceReducer(
       persistReducer(persistConfig, rootReducer(store.asyncReducers) as Reducer)
     )

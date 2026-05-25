@@ -4,88 +4,86 @@ import Link from 'next/link'
 const WelcomePage = () => {
   return (
     <>
-      <div className="welcome-top">
-        <div className="welcome-bg">
-          <img src="/index.jpg" />
+      <div className="welcome-top position-relative overflow-hidden" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center' }}>
+        <div className="welcome-bg position-absolute w-100 h-100 top-0 start-0 z-0">
+          <img 
+            src="/index.jpg" 
+            alt="Background" 
+            style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'blur(8px) brightness(0.4)', transform: 'scale(1.1)' }} 
+          />
+          <div className="position-absolute w-100 h-100 top-0 start-0" style={{ background: 'linear-gradient(to bottom, rgba(15, 23, 42, 0.2), #0f172a)' }}></div>
         </div>
-        <div className="container max-md position-relative z-index-2">
-          <div className="py-4">
-            <h1 className="shadow-sm">
-              <b>Read Manga Online For Free.</b>
+        <div className="container max-md position-relative z-index-2 text-center text-md-start animate-fade-in">
+          <div className="py-5 my-5">
+            <h1 className="display-3 fw-bold mb-3" style={{ background: 'linear-gradient(135deg, #fff, #94a3b8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              Read Manga Online For Free.
             </h1>
-            <h2 className="shadow-sm">Unveil Your Love for Manga Online.</h2>
-            <Link
-              className="btn btn-lg shadow-sm text-uppercase btn-primary mt-3"
-              href="home"
-            >
-              <span className="mr-2">Go To Home Page</span>
-              <i className="fa-regular fa-arrow-right fa-beat"></i>
-            </Link>
+            <h2 className="h4 text-muted fw-normal mb-5 line-height-lg" style={{ maxWidth: '600px' }}>
+              Immerse yourself in a premium, lightning-fast reading experience with over 30,000 titles synced across all your devices.
+            </h2>
+            <div className="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-md-start">
+              <Link
+                className="btn btn-lg btn-primary px-5 py-3 fw-bold"
+                href="/home"
+              >
+                <span className="mr-2">Start Reading</span>
+                <i className="fa-solid fa-arrow-right"></i>
+              </Link>
+              <Link
+                className="btn btn-lg btn-outline-light px-5 py-3 fw-bold glass-panel"
+                href="/browse"
+              >
+                <span className="mr-2">Browse Sources</span>
+                <i className="fa-solid fa-compass"></i>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
-      <div className="welcome-bottom">
-        <div className="container max-md p-0 p-sm-3">
-          <div className="bg-secondary shadow-sm">
-            <article>
-              <div className="mb-4">
+      <div className="welcome-bottom py-5" style={{ background: '#0f172a' }}>
+        <div className="container max-md">
+          <div className="glass-panel p-4 p-md-5 mx-auto" style={{ maxWidth: '800px' }}>
+            <article className="text-muted" style={{ lineHeight: 1.8 }}>
+              <div className="mb-5 text-center">
                 <ShareSocial />
               </div>
-              <h3 className="sub-heading">
-                MangaFire - Read Manga Online Free
+              <h3 className="h4 text-white fw-bold mb-3">
+                MangaBlaze - The Ultimate Reader
               </h3>
-              <p>
-                Are you looking for a platform to
-                <strong>read manga online</strong>? Look no further than our
-                website! With over 30,000 titles, we offer an extensive
+              <p className="mb-4">
+                Are you looking for a platform to <strong className="text-white">read manga online</strong>? Look no further than our
+                website! With over 30,000 titles from multiple aggregated sources, we offer an extensive
                 collection of manga comics for all readers. Our platform
                 provides a user-friendly interface that is easy to navigate and
                 explore, so you can quickly find your desired title.
               </p>
-              <p>
-                We have a vast range of genres and sub-genres, ensuring there is
-                something for everyone. From romance to action, we have got it
-                all covered. We are always updating our platform with new and
-                exciting manga titles, and all our comics are of high-quality
-                scans. You&apos;ll never be disappointed with the quality of the
-                images.
-              </p>
-              <h5 className="sub-heading">Safe to use</h5>
-              <p>
-                We understand how annoying it is to deal with pop-up ads and
-                unwanted distractions while reading, which is why we have zero
-                pop-up ads. Our platform is completely safe to use, and your
-                reading experience will not be disrupted by unwanted
-                advertisements.
-              </p>
-              <h5 className="sub-heading">Smart features</h5>
-              <p>
-                We also offer a smart and convenient sync feature that allows
-                you to access your content on both your PC and mobile devices.
-                No matter where you are, you can pick up where you left off,
-                making reading manga comics even more enjoyable.
-              </p>
-              <h5 className="sub-heading">Completely free</h5>
-              <p>
-                Our website is entirely free to use. You don&apos;t need to register
-                or pay for anything to access our vast collection of manga
-                comics. We also provide you with the flexibility to switch
-                between dark and light themes to suit your reading preferences.
-              </p>
-              <p>
-                We understand that the structure of our website can be crucial
-                to the user experience. That is why we have a well-organized
-                structure, breaking down our content into different categories
-                to help you find what you&apos;re looking for quickly. With our
-                customer service team always available to help, you can rest
-                assured that we have got you covered.
-              </p>
-              <p>
+              
+              <div className="row g-4 my-5">
+                <div className="col-md-6">
+                  <div className="p-4 bg-secondary-subtle rounded-3 h-100">
+                    <h5 className="text-white fw-bold"><i className="fa-solid fa-shield-halved text-primary mr-2"></i> Safe to use</h5>
+                    <p className="mb-0 small">
+                      We understand how annoying it is to deal with pop-up ads and
+                      unwanted distractions. Our platform is entirely safe to use and free of disruptive advertisements.
+                    </p>
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="p-4 bg-secondary-subtle rounded-3 h-100">
+                    <h5 className="text-white fw-bold"><i className="fa-solid fa-bolt text-warning mr-2"></i> Smart features</h5>
+                    <p className="mb-0 small">
+                      We offer a smart and convenient sync feature that allows
+                      you to access your content on both your PC and mobile devices.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <p className="mb-0">
                 In conclusion, our website offers an extensive collection of
-                high-quality manga comics with a user-friendly interface, smart
+                high-quality manga comics with a premium interface, smart
                 features, and zero pop-up ads. We aim to make your manga reading
-                experience an enjoyable and hassle-free one, so check us out and
-                start exploring our collection today!
+                experience an enjoyable and hassle-free one.
               </p>
             </article>
           </div>

@@ -137,7 +137,7 @@ export const lusciousSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const mangaId = chapterId
       const firstUrl = `${BASE_URL}/albums/${mangaId}/`

@@ -195,7 +195,7 @@ export const comicskingdomSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const strip = await fetchJSON<WPComic>(`${API_URL}/ck_comic/${chapterId}`)
       const url = strip.assets?.single?.url || strip.assets?.featured?.url

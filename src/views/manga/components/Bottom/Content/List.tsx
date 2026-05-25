@@ -33,9 +33,10 @@ function Item(props: ItemProps) {
   const { time, chapNumber, title, chapterId, mangaId, externalUrl, sourceId } = props
   const [downloading, setDownloading] = useState(false)
   
-  const href = externalUrl || `/read/${mangaId}/en/${chapterId}?source=${sourceId}`
-  const target = externalUrl ? '_blank' : undefined
-  const rel = externalUrl ? 'noopener noreferrer' : undefined
+  const isAbsolute = chapterId.startsWith('http://') || chapterId.startsWith('https://')
+  const href = externalUrl || (isAbsolute ? chapterId : `/read/${mangaId}/en/${chapterId}?source=${sourceId}`)
+  const target = (externalUrl || isAbsolute) ? '_blank' : undefined
+  const rel = (externalUrl || isAbsolute) ? 'noopener noreferrer' : undefined
 
   const handleDownload = async (e: React.MouseEvent) => {
     e.preventDefault()
@@ -80,13 +81,13 @@ function Item(props: ItemProps) {
   }
 
   return (
-    <li className="item" data-number={chapNumber}>
-      <div className="d-flex align-items-center justify-content-between w-100 pr-3">
-        <Link href={href} target={target} rel={rel} title={chapNumber} className="flex-grow-1 text-decoration-none">
-          <span>
-            Chapter {chapNumber}: {title} {externalUrl && <span className="badge badge-secondary ml-1" style={{ fontSize: '10px', verticalAlign: 'middle', background: '#343a40', color: '#fff', padding: '2px 4px', borderRadius: '3px' }}>External</span>}
+    <li className="item border-bottom border-white/5 transition-all hover-bg-white/5" data-number={chapNumber}>
+      <div className="d-flex align-items-center justify-content-between w-100 px-3 py-2">
+        <Link href={href} target={target} rel={rel} title={chapNumber} className="flex-grow-1 text-decoration-none text-white d-flex align-items-center justify-content-between pe-3">
+          <span className="fw-semibold">
+            Chapter {chapNumber}: <span className="text-muted fw-normal">{title}</span> {externalUrl && <span className="badge bg-secondary ms-2" style={{ fontSize: '10px' }}>External</span>}
           </span>
-          <span>{formatDate(time)}</span>
+          <span className="text-muted small">{formatDate(time)}</span>
         </Link>
         {!externalUrl && (
           <button 

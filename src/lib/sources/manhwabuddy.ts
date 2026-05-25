@@ -109,7 +109,7 @@ export const manhwabuddySource: MangaSource = {
     return chapters.slice(0, limit)
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     const $ = await fetchHTML(`${BASE_URL}/manhwa/${chapterId}/`)
     if (!$) return []
     const pages: SourcePage[] = []

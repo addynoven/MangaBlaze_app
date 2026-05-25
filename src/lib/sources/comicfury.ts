@@ -151,7 +151,7 @@ export const comicfurySource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       // chapterId format: "{slug}/{comicId}"
       const parts = chapterId.split('/')

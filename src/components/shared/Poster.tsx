@@ -9,8 +9,9 @@ type PosterProps = {
 
 const Poster = (props: PosterProps) => {
   const { item, index } = props
+  const sourceParam = (item as any).source ? `?source=${(item as any).source}` : ''
   return (
-    <Link href={`/manga/${item.id || 'unknown'}`}>
+    <Link href={`/manga/${item.id || 'unknown'}${sourceParam}`}>
       {index ? <b>{index}</b> : null}
       <div className="poster">
         <div>

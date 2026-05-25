@@ -12,6 +12,7 @@ import "@/assets/styles/modal.css";
 import "@/assets/styles/toast.css";
 import "@/assets/styles/read.css";
 import "@/assets/styles/reader-ux.css";
+import "@/assets/styles/theme.css";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";

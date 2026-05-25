@@ -140,7 +140,7 @@ export const hentaienvySource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const galleryUrl = `${BASE_URL}/gallery/${chapterId}/`
       const $gallery = await fetchHTML(galleryUrl)

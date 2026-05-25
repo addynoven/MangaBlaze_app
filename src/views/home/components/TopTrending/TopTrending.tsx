@@ -18,7 +18,7 @@ const TopTrending = ({ sourceId }: { sourceId?: string }) => {
       .then((res) => res.json())
       .then((res) => {
         const latency = Date.now() - start
-        const items = res.data?.map(toTrendingItem) || []
+        const items = res.data?.map((m: any) => toTrendingItem(m, source)) || []
         reportSourceHealth(source, items.length > 0, latency)
         setData(items)
         setLoading(false)

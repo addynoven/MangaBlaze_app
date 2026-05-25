@@ -137,7 +137,7 @@ export const crowscansSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const res = await fetch(chapterId, {
         headers: { 'User-Agent': USER_AGENT },

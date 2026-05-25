@@ -192,7 +192,7 @@ export const voycemeSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const id = parseInt(chapterId, 10)
       if (isNaN(id)) return []

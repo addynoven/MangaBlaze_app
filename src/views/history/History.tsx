@@ -34,10 +34,11 @@ const History = () => {
               source: m.sourceId,
               chapters: [{
                 info: `Last read: Ch. ${m.progress.chapterNumber}`,
-                date: new Date(m.progress.updatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+                date: new Date(m.progress.updatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                lang: 'EN',
                 chapterId: m.progress.chapterId
               }]
-            }))
+            } as any))
             setData(items)
           }
           setLoading(false)
@@ -55,9 +56,10 @@ const History = () => {
       chapters: [{
         info: `Last read: Ch. ${m.lastReadChapter}`,
         date: m.updatedAt ? new Date(m.updatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Recently',
+        lang: 'EN',
         chapterId: m.lastReadChapterId || ''
       }]
-    }))
+    } as any))
   }, [signedIn, localHistory])
 
   const displayData = signedIn ? data : localData
@@ -65,18 +67,22 @@ const History = () => {
 
   return (
     <div className="container py-4">
-      <h2 className="mb-4 fw-bold">Reading History</h2>
+      <h2 className="mb-4 fw-bold">
+        <span className="text-primary">Reading</span> History
+      </h2>
       <Loading loading={isActuallyLoading} type="gif">
         {displayData.length > 0 ? (
           <div className="original card-lg animate-fade-in">
             {displayData.map((item, index) => (
-              <Card key={`${item.source}-${item.id}`} item={item} index={index + 1} />
+              <Card key={`${(item as any).source}-${item.id}`} item={item as any} index={index + 1} />
             ))}
           </div>
         ) : (
-          <div className="text-center py-5 bg-secondary-subtle rounded animate-fade-in">
-             <i className="fa-regular fa-history fa-3xl mb-3 text-muted"></i>
-             <h3>Your history is empty</h3>
+          <div className="text-center py-5 glass-panel animate-fade-in mx-auto" style={{ maxWidth: '500px' }}>
+             <div className="mb-4">
+               <i className="fa-solid fa-clock-rotate-left text-primary" style={{ fontSize: '4rem', filter: 'drop-shadow(0 0 15px rgba(59,130,246,0.5))' }}></i>
+             </div>
+             <h3 className="fw-bold mb-2">Your history is empty</h3>
              <p className="text-muted">Manga you read will appear here.</p>
           </div>
         )}

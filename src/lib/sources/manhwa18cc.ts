@@ -137,10 +137,10 @@ export const manhwa18ccSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
-      const mangaId = chapterId.split('/')[0]
-      const url = `${BASE_URL}/webtoon/${mangaId}/${chapterId}`
+      const finalMangaId = mangaId || chapterId.split('/')[0]
+      const url = `${BASE_URL}/webtoon/${finalMangaId}/${chapterId}`
       const $ = await fetchHTML(url)
 
       const pages: SourcePage[] = []

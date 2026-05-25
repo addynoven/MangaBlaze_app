@@ -127,7 +127,7 @@ export const supermegacomicsSource: MangaSource = {
     }
   },
 
-  async getChapterPages(chapterId: string): Promise<SourcePage[]> {
+  async getChapterPages(chapterId: string, mangaId?: string): Promise<SourcePage[]> {
     try {
       const url = `${BASE_URL}/index.php?i=${chapterId}`
       const $ = await fetchHTML(url)
