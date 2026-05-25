@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { Card, Loading } from '@/components/shared'
 import { Genre } from '@/@types/common'
 import Link from 'next/link'
@@ -27,10 +27,10 @@ const Library = () => {
   const localBookmarks = useAppSelector((state) => state.library.bookmarks)
   const signedIn = useAppSelector((state) => state.auth.session.signedIn)
   
-  const [data, setData] = useState<LibraryManga[]>([])
+  const [apiData, setApiData] = useState<LibraryManga[]>([])
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState('reading')
-  const [stats, setStats] = useState<LibraryStats | null>(null)
+  const [apiStats, setApiStats] = useState<LibraryStats | null>(null)
 
   const statuses = [
     { id: 'reading', label: 'Reading' },
@@ -50,7 +50,14 @@ const Library = () => {
         .then(res => res.json())
         .then(res => {
           if (res.data) {
-            const items = res.data.map((m: any): LibraryManga => ({
+            const items = res.data.map((m: { 
+              realId: string; 
+              coverUrl?: string; 
+              title: string; 
+              sourceId: string; 
+              status: string; 
+              progress?: { chapterNumber: string; updatedAt: string; chapterId: string } 
+            }): LibraryManga => ({
               id: m.realId,
               image: m.coverUrl || '/images/placeholder.png',
               type: 'Manga',
@@ -63,7 +70,7 @@ const Library = () => {
                 chapterId: m.progress.chapterId
               }] : []
             }))
-            setData(items)
+            setApiData(items)
           }
           setLoading(false)
         })
@@ -78,43 +85,52 @@ const Library = () => {
           }
         })
         .catch(() => {})
-    } else {
-      // Use local bookmarks
-      setData(localBookmarks.map(m => ({
-        ...m,
-        image: m.cover,
-        libraryStatus: m.status || 'reading',
-        chapters: m.lastReadChapter ? [{
-          info: `Read: Ch. ${m.lastReadChapter}`,
-          date: m.updatedAt ? new Date(m.updatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Recently',
-          chapterId: m.lastReadChapterId || ''
-        }] : []
-      })))
-      setLoading(false)
     }
-  }, [dispatch, signedIn, localBookmarks])
+  }, [dispatch, signedIn])
 
   useEffect(() => {
-    if (activeTab === 'stats') {
-      if (signedIn) {
-        fetch('/api/user/library/stats')
-          .then(res => res.json())
-          .then(res => setStats(res.data))
-          .catch(() => {})
-      } else {
-        // Calculate basic stats from local data
-        const genreMap = new Map<string, number>()
-        // Note: local data might not have tags unless we save them. 
-        // For MVP, just show totals.
-        setStats({
-          totalBookmarks: localBookmarks.length,
-          estimatedChaptersRead: 0, 
-          mangaRead: localBookmarks.filter(m => m.lastReadChapter).length,
-          topGenres: []
-        })
-      }
+    if (activeTab === 'stats' && signedIn) {
+      fetch('/api/user/library/stats')
+        .then(res => res.json())
+        .then(res => setApiStats(res.data))
+        .catch(() => {})
     }
-  }, [activeTab, signedIn, localBookmarks])
+  }, [activeTab, signedIn])
+
+  // Derive display data using useMemo to avoid sync setState in effect
+  const localData = useMemo(() => {
+    if (signedIn) return []
+    return localBookmarks.map(m => ({
+      ...m,
+      image: m.cover,
+      libraryStatus: m.status || 'reading',
+      chapters: m.lastReadChapter ? [{
+        info: `Read: Ch. ${m.lastReadChapter}`,
+        date: m.updatedAt ? new Date(m.updatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Recently',
+        chapterId: m.lastReadChapterId || ''
+      }] : []
+    })) as LibraryManga[]
+  }, [signedIn, localBookmarks])
+
+  const allData = signedIn ? apiData : localData
+  
+  const filteredData = useMemo(() => {
+    return allData.filter(item => item.libraryStatus === activeTab)
+      .map(item => ({
+        ...item,
+        isNew: unreadUpdates.includes(item.id as string)
+      }))
+  }, [allData, activeTab, unreadUpdates])
+
+  const stats = useMemo(() => {
+    if (signedIn) return apiStats
+    return {
+      totalBookmarks: localBookmarks.length,
+      estimatedChaptersRead: 0, 
+      mangaRead: localBookmarks.filter(m => m.lastReadChapter).length,
+      topGenres: []
+    } as LibraryStats
+  }, [signedIn, apiStats, localBookmarks])
 
   const handleExport = async () => {
     if (signedIn) {
@@ -171,7 +187,6 @@ const Library = () => {
             toast.error(data.error || 'Import failed')
           }
         } else {
-          // Import to local Redux (TODO: implement setBookmarksLocal action or loop)
           toast.error('Local import not yet implemented. Please login to import.')
         }
       } catch (err) {
@@ -180,12 +195,6 @@ const Library = () => {
     }
     reader.readAsText(file)
   }
-
-  const filteredData = data.filter(item => item.libraryStatus === activeTab)
-    .map(item => ({
-      ...item,
-      isNew: unreadUpdates.includes(item.id as string)
-    }))
 
   return (
     <div className="container py-4">
@@ -209,14 +218,14 @@ const Library = () => {
             <i className="fa-solid fa-cloud-arrow-up mr-1"></i> Import
             <input type="file" className="d-none" accept=".json" onChange={handleImport} />
           </label>
-          <span className="badge bg-primary rounded-pill px-3 py-2">{data.length} Total</span>
+          <span className="badge bg-primary rounded-pill px-3 py-2">{allData.length} Total</span>
         </div>
       </div>
 
       <div className="nav nav-pills mb-5 flex-nowrap overflow-auto pb-2 custom-scrollbar">
         {statuses.map(s => {
-          const count = data.filter(item => item.libraryStatus === s.id).length
-          const hasUpdate = data.some(item => item.libraryStatus === s.id && unreadUpdates.includes(item.id as string))
+          const count = allData.filter(item => item.libraryStatus === s.id).length
+          const hasUpdate = allData.some(item => item.libraryStatus === s.id && unreadUpdates.includes(item.id as string))
           return (
             <button
               key={s.id}
@@ -241,7 +250,7 @@ const Library = () => {
         })}
       </div>
 
-      <Loading loading={loading} type="gif">
+      <Loading loading={signedIn ? loading : false} type="gif">
         <div className="animate-fade-in">
           {activeTab === 'stats' ? (
             <div className="stats-dashboard">
@@ -285,7 +294,7 @@ const Library = () => {
           ) : filteredData.length > 0 ? (
             <div className="original card-lg">
               {filteredData.map((item, index) => (
-                <Card key={item.id || index} item={item} index={index + 1} />
+                <Card key={`${item.source}-${item.id}`} item={item} index={index + 1} />
               ))}
             </div>
           ) : (

@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState, useEffect, useMemo, useCallback } from 'react'
 import classNames from 'classnames'
 import { SwiperRef } from 'swiper/react'
 import Link from 'next/link'
@@ -51,22 +51,26 @@ const Read = ({ slug, lang = 'en', chapter }: ReadProps) => {
   const { pageType, pageIndex, fitType, activeSwiper, isSwiping, readerMode, activeTheme } =
     useAppSelector((state) => state.theme)
 
-  // Move declarations up
-  const readableChapters = chapters.filter(
+  // Memoize readable chapters and navigation
+  const readableChapters = useMemo(() => chapters.filter(
     (c) => !c.externalUrl && !c.isUnavailable
-  )
-  const currentChapterIdx = readableChapters.findIndex((c) => c.id === chapter)
+  ), [chapters])
 
-  const prevChapter =
+  const currentChapterIdx = useMemo(() => readableChapters.findIndex((c) => c.id === chapter), [readableChapters, chapter])
+
+  const prevChapter = useMemo(() => (
     currentChapterIdx !== -1 && currentChapterIdx < readableChapters.length - 1
       ? readableChapters[currentChapterIdx + 1]
       : null
-  const nextChapter =
+  ), [currentChapterIdx, readableChapters])
+
+  const nextChapter = useMemo(() => (
     currentChapterIdx !== -1 && currentChapterIdx > 0
       ? readableChapters[currentChapterIdx - 1]
       : null
+  ), [currentChapterIdx, readableChapters])
 
-  const sourceParam = sourceId ? `?source=${sourceId}` : ''
+  const sourceParam = useMemo(() => sourceId ? `?source=${sourceId}` : '', [sourceId])
 
   useEffect(() => {
     if (!slug) return
@@ -97,7 +101,7 @@ const Read = ({ slug, lang = 'en', chapter }: ReadProps) => {
         dispatch(updateProgressLocal({
           id: slug,
           source: sourceId,
-          title: slug, // Title might be unknown here, but will be updated next time they visit detail
+          title: slug, // Title might be unknown here
           cover: '', 
           lastReadChapter: currentChap.chapterNumber || '?',
           lastReadChapterId: chapter,
@@ -152,6 +156,7 @@ const Read = ({ slug, lang = 'en', chapter }: ReadProps) => {
         const latency = Date.now() - start
         
         let imageUrls: string[] = []
+        // MangaDex format: baseUrl + hash + file names
         const hash = data.chapter?.hash || data.hash
         const files = data.chapter?.data || data.data || []
         if (data.baseUrl && hash && files.length) {
@@ -159,6 +164,7 @@ const Read = ({ slug, lang = 'en', chapter }: ReadProps) => {
             (file: string) => `${data.baseUrl}/data/${hash}/${file}`
           )
         } else if (Array.isArray(data.pages) && data.pages.length) {
+          // Normalized format with {url, index} objects
           imageUrls = data.pages.map((p: { url: string }) => p.url)
         } else if (files.length && typeof files[0] === 'string' && files[0].startsWith('http')) {
           imageUrls = files
@@ -252,7 +258,7 @@ const Read = ({ slug, lang = 'en', chapter }: ReadProps) => {
     }
   }, [pageIndex, pages])
 
-  const handleChangePage = (
+  const handleChangePage = useCallback((
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     if (!isClickable) return
@@ -283,7 +289,7 @@ const Read = ({ slug, lang = 'en', chapter }: ReadProps) => {
       if (isSwiping) swiperRef.current?.swiper.slideNext()
     }
     setTimeout(() => setIsClickable(true), isSwiping ? 300 : 0)
-  }
+  }, [isClickable, pageType, dispatch, pageIndex, activeSwiper, isSwiping, pages.length])
 
   if (loading) {
     return (
@@ -299,7 +305,7 @@ const Read = ({ slug, lang = 'en', chapter }: ReadProps) => {
     return (
       <div className="pages" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', flexDirection: 'column', gap: 16 }}>
         <h3>No chapter selected or chapter not found</h3>
-        <Link href={`/manga/${slug}${sourceId ? `?source=${sourceId}` : ''}`} className="btn btn-primary">Back to Manga</Link>
+        <Link href={`/manga/${slug}${sourceParam}`} className="btn btn-primary">Back to Manga</Link>
       </div>
     )
   }
@@ -322,7 +328,7 @@ const Read = ({ slug, lang = 'en', chapter }: ReadProps) => {
             <Link href="/home" className="reader-floating-btn" title="Home">
               <i className="fa-solid fa-house fa-lg"></i>
             </Link>
-            <Link href={`/manga/${slug}${sourceId ? `?source=${sourceId}` : ''}`} className="reader-floating-btn" title="Back to Manga">
+            <Link href={`/manga/${slug}${sourceParam}`} className="reader-floating-btn" title="Back to Manga">
               <i className="fa-solid fa-book fa-lg"></i>
             </Link>
           </div>

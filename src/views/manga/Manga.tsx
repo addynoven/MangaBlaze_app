@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import {
   ContentBottom,
   ContentTop,
@@ -26,6 +26,7 @@ type MangaPageProps = {
 const MangaPage = ({ mangaId, sourceId }: MangaPageProps) => {
   const dispatch = useAppDispatch()
   const pinnedSources = useAppSelector((state) => state.library.pinnedSources)
+  
   const [manga, setManga] = useState<SourceMangaDetail | null>(null)
   const [chapters, setChapters] = useState<SourceChapter[]>([])
   const [loading, setLoading] = useState(true)
@@ -42,7 +43,12 @@ const MangaPage = ({ mangaId, sourceId }: MangaPageProps) => {
 
   useEffect(() => {
     if (!activeMangaId) return
-    setLoading(true)
+    
+    let active = true
+    // Use a function to set loading instead of sync setState to avoid cascading renders
+    const startLoading = () => { if (active) setLoading(true); };
+    startLoading();
+
     const start = Date.now()
 
     Promise.all([
@@ -50,6 +56,7 @@ const MangaPage = ({ mangaId, sourceId }: MangaPageProps) => {
       fetch(`/api/manga/detail/feed?id=${activeMangaId}&limit=500&source=${activeSourceId}`).then((r) => r.json()),
     ])
       .then(([mangaRes, feedRes]) => {
+        if (!active) return
         const latency = Date.now() - start
         reportSourceHealth(activeSourceId, !!mangaRes, latency)
         setManga(mangaRes || null)
@@ -57,10 +64,13 @@ const MangaPage = ({ mangaId, sourceId }: MangaPageProps) => {
         setLoading(false)
       })
       .catch(() => {
+        if (!active) return
         const latency = Date.now() - start
         reportSourceHealth(activeSourceId, false, latency, 'Network error')
         setLoading(false)
       })
+
+    return () => { active = false; }
   }, [activeMangaId, activeSourceId])
 
   // Resolve other sources in background

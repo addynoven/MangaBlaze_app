@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { Card, Loading } from '@/components/shared'
 import { Genre } from '@/@types/common'
 import { useAppSelector } from '@/store/hook'
@@ -20,7 +20,13 @@ const History = () => {
         .then(res => res.json())
         .then(res => {
           if (res.data) {
-            const items = res.data.map((m: any): Genre => ({
+            const items = res.data.map((m: { 
+              realId: string; 
+              coverUrl?: string; 
+              title: string; 
+              sourceId: string; 
+              progress: { chapterNumber: string; updatedAt: string; chapterId: string } 
+            }): Genre => ({
               id: m.realId,
               image: m.coverUrl || '/images/placeholder.png',
               type: 'Manga',
@@ -37,28 +43,33 @@ const History = () => {
           setLoading(false)
         })
         .catch(() => setLoading(false))
-    } else {
-      // Use local history from Redux
-      setData(localHistory.map(m => ({
-        ...m,
-        image: m.cover,
-        chapters: [{
-          info: `Last read: Ch. ${m.lastReadChapter}`,
-          date: m.updatedAt ? new Date(m.updatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Recently',
-          chapterId: m.lastReadChapterId || ''
-        }]
-      })))
-      setLoading(false)
     }
+  }, [signedIn])
+
+  // Use useMemo for local history to avoid synchronous setState in effect
+  const localData = useMemo(() => {
+    if (signedIn) return []
+    return localHistory.map(m => ({
+      ...m,
+      image: m.cover,
+      chapters: [{
+        info: `Last read: Ch. ${m.lastReadChapter}`,
+        date: m.updatedAt ? new Date(m.updatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Recently',
+        chapterId: m.lastReadChapterId || ''
+      }]
+    }))
   }, [signedIn, localHistory])
+
+  const displayData = signedIn ? data : localData
+  const isActuallyLoading = signedIn ? loading : false
 
   return (
     <div className="container py-4">
       <h2 className="mb-4 fw-bold">Reading History</h2>
-      <Loading loading={loading} type="gif">
-        {data.length > 0 ? (
+      <Loading loading={isActuallyLoading} type="gif">
+        {displayData.length > 0 ? (
           <div className="original card-lg animate-fade-in">
-            {data.map((item, index) => (
+            {displayData.map((item, index) => (
               <Card key={`${item.source}-${item.id}`} item={item} index={index + 1} />
             ))}
           </div>

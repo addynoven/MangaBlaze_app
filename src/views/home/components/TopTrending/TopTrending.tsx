@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Navigation } from 'swiper/modules'
 
 import TrendingCard from './TrendingCard'
-import { toTrendingItem, TrendingItem } from './TrendingCard'
+import { toTrendingItem, TrendingItem } from '@/utils/manga'
 import { getSelectedSource } from '@/lib/sourceStorage'
 import { reportSourceHealth } from '@/utils/health'
 

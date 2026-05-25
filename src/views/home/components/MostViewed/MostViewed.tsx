@@ -4,7 +4,7 @@ import { EffectFade, Pagination } from 'swiper/modules'
 
 import Head from './Head'
 import { Loading, Poster } from '@/components/shared'
-import { toPosterItem, PosterItem } from '@/components/shared/Poster'
+import { toPosterItem, PosterItem } from '@/utils/manga'
 import { getSelectedSource } from '@/lib/sourceStorage'
 import { reportSourceHealth } from '@/utils/health'
 

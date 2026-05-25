@@ -1,6 +1,5 @@
 import Link from 'next/link'
-
-import { TrendingItem } from '@/lib/mangadex/transform'
+import { TrendingItem } from '@/utils/manga'
 
 type TrendingCardProps = {
   item: TrendingItem
