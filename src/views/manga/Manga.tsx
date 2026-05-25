@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import {
   ContentBottom,
   ContentTop,
@@ -37,6 +37,11 @@ const MangaPage = ({ mangaId, sourceId }: MangaPageProps) => {
   const [activeMangaId, setActiveMangaId] = useState(mangaId)
   const [activeSourceId, setActiveSourceId] = useState(sourceId || getSelectedSource())
 
+  const handleSwitchSource = useCallback((newSourceId: string, newMangaId: string) => {
+    setActiveSourceId(newSourceId)
+    setActiveMangaId(newMangaId)
+  }, [])
+
   useEffect(() => {
     if (mangaId) {
       dispatch(clearUpdate(mangaId))
@@ -47,9 +52,7 @@ const MangaPage = ({ mangaId, sourceId }: MangaPageProps) => {
     if (!activeMangaId) return
     
     let active = true
-    // Use a function to set loading instead of sync setState to avoid cascading renders
-    const startLoading = () => { if (active) setLoading(true); };
-    startLoading();
+    Promise.resolve().then(() => { if (active) setLoading(true); });
 
     const start = Date.now()
 
@@ -67,9 +70,8 @@ const MangaPage = ({ mangaId, sourceId }: MangaPageProps) => {
         setChapters(loadedChapters)
         setLoading(false)
 
-        // Automatic Fallback: If no chapters, and we haven't tried resolving yet, do it now
+        // Automatic Fallback
         if (loadedChapters.length === 0 && mangaRes?.title) {
-          console.log(`[Fallback] No chapters on ${activeSourceId}, resolving...`)
           const otherSources = pinnedSources.filter(s => s !== activeSourceId).join(',')
           if (otherSources) {
             fetch(`/api/manga/resolve?title=${encodeURIComponent(mangaRes.title)}&sources=${otherSources}`)
@@ -77,7 +79,6 @@ const MangaPage = ({ mangaId, sourceId }: MangaPageProps) => {
               .then(res => {
                 if (res.data && res.data.length > 0) {
                   const firstMatch = res.data[0]
-                  console.log(`[Fallback] Found match on ${firstMatch.sourceId}, switching...`)
                   handleSwitchSource(firstMatch.sourceId, firstMatch.mangaId)
                 }
               })
@@ -92,7 +93,7 @@ const MangaPage = ({ mangaId, sourceId }: MangaPageProps) => {
       })
 
     return () => { active = false; }
-  }, [activeMangaId, activeSourceId])
+  }, [activeMangaId, activeSourceId, pinnedSources, handleSwitchSource])
 
   // Resolve other sources in background
   useEffect(() => {
@@ -110,11 +111,6 @@ const MangaPage = ({ mangaId, sourceId }: MangaPageProps) => {
       })
       .catch(() => {})
   }, [manga?.title, pinnedSources, activeSourceId])
-
-  const handleSwitchSource = (newSourceId: string, newMangaId: string) => {
-    setActiveSourceId(newSourceId)
-    setActiveMangaId(newMangaId)
-  }
 
   useEffect(() => {
     if (manga) {

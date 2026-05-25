@@ -1,0 +1,9 @@
+{
+  "id": "asurascans",
+  "name": "Asura Scans",
+  "lang": "en",
+  "version": "1.0.0",
+  "baseUrl": "https://asurascans.com",
+  "type": "scraper",
+  "nsfw": false
+}

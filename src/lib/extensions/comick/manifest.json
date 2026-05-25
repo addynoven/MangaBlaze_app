@@ -1,0 +1,9 @@
+{
+  "id": "comick",
+  "name": "ComicK",
+  "lang": "en",
+  "version": "1.0.0",
+  "baseUrl": "https://api.comick.app",
+  "type": "api",
+  "nsfw": false
+}
