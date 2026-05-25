@@ -147,12 +147,16 @@ const Read = ({ slug, lang = 'en', chapter }: ReadProps) => {
   useEffect(() => {
     if (!chapter) return
 
-    setLoading(true)
+    let active = true
+    Promise.resolve().then(() => {
+      if (active) setLoading(true)
+    })
 
     const start = Date.now()
     fetch(`/api/chapter/pages?id=${chapter}&source=${sourceId}`)
       .then((r) => r.json())
       .then((data) => {
+        if (!active) return
         const latency = Date.now() - start
         
         let imageUrls: string[] = []
@@ -167,6 +171,7 @@ const Read = ({ slug, lang = 'en', chapter }: ReadProps) => {
           // Normalized format with {url, index} objects
           imageUrls = data.pages.map((p: { url: string }) => p.url)
         } else if (files.length && typeof files[0] === 'string' && files[0].startsWith('http')) {
+          // Array of full URLs
           imageUrls = files
         }
         
@@ -181,8 +186,12 @@ const Read = ({ slug, lang = 'en', chapter }: ReadProps) => {
       .catch(() => {
         const latency = Date.now() - start
         reportSourceHealth(sourceId, false, latency, 'Network error')
-        setLoading(false)
+        if (active) setLoading(false)
       })
+
+    return () => {
+      active = false
+    }
   }, [chapter, dispatch, sourceId])
 
   // Keyboard Shortcuts
@@ -244,7 +253,11 @@ const Read = ({ slug, lang = 'en', chapter }: ReadProps) => {
   }, [pageIndex, pages.length, nextChapter, sourceId, nextChapterPages.length])
 
   useEffect(() => {
-    setNextChapterPages([])
+    let active = true
+    Promise.resolve().then(() => {
+      if (active) setNextChapterPages([])
+    })
+    return () => { active = false }
   }, [chapter])
 
   // Prefetch Current Chapter Pages

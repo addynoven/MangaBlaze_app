@@ -19,11 +19,14 @@ const Updates = () => {
       .then(res => res.json())
       .then(res => {
         if (res.data) {
-          const items = res.data.map((item: any): Genre => ({
+          const items = res.data.map((item: { 
+            manga: { realId: string; coverUrl?: string; title: string; sourceId: string }; 
+            latestChapter: { chapterNumber: string; publishedAt: string; id: string } 
+          }): Genre => ({
             id: item.manga.realId,
             image: item.manga.coverUrl || '/images/placeholder.png',
             type: 'Manga',
-            title: item.manga.title,
+            title: item.manga.title || 'Unknown',
             source: item.manga.sourceId,
             chapters: [{
               info: `Chap ${item.latestChapter.chapterNumber}`,

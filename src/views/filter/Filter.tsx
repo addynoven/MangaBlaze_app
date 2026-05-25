@@ -26,7 +26,7 @@ const FilterPage = () => {
 
   useEffect(() => {
     const query = keyword || ''
-    setLoading(true)
+    Promise.resolve().then(() => setLoading(true))
     
     fetch(`/api/manga?q=${encodeURIComponent(query)}&source=${source}&limit=20`)
       .then((res) => res.json())
@@ -37,9 +37,18 @@ const FilterPage = () => {
           return
         }
 
-        const items = res.data.map((manga: any): Genre | null => {
+        const items = res.data.map((manga: { 
+          id: string; 
+          cover?: string; 
+          genres?: string[]; 
+          title?: string; 
+          lastChapter?: string; 
+          year?: number;
+          sources?: string[];
+          source?: string;
+        }): Genre | null => {
           if (!manga) return null
-          const activeSource = manga.sources?.[0] || manga.source
+          const activeSource = manga.sources?.[0] || manga.source || 'mangadex'
           return {
             id: manga.id,
             image: manga.cover || '/images/placeholder.png',
@@ -83,6 +92,22 @@ const FilterPage = () => {
     <div className="container">
       <section className="mt-5">
         <Head />
+        <style>{`
+          /* Override horizontal #filters styling to make it a proper vertical sidebar */
+          #filters > div:last-child {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+          }
+          #filters > div:last-child > div {
+            width: 100% !important;
+            float: none !important;
+            padding: 0 !important;
+          }
+          #filters > div:last-child::after {
+            display: none !important;
+          }
+        `}</style>
         <div className="row">
           <div className="col-lg-3 d-none d-lg-block">
             <Filter handleSubmit={handleSubmit} />

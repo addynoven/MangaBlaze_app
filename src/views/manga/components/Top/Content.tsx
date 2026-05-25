@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { toast } from 'react-hot-toast'
 import classNames from 'classnames'
 
@@ -9,7 +8,7 @@ import Modal from '@/components/ui/Modal'
 import type { SourceMangaDetail, SourceChapter } from '@/lib/sources'
 import { getSelectedSource } from '@/lib/sourceStorage'
 import { useAppDispatch, useAppSelector } from '@/store/hook'
-import { toggleBookmarkLocal, updateProgressLocal } from '@/store/slices/library/librarySlice'
+import { toggleBookmarkLocal } from '@/store/slices/library/librarySlice'
 
 type ContentTopProps = {
   manga: SourceMangaDetail
@@ -29,7 +28,7 @@ const ContentTop = ({ manga, chapters, sourceId, resolvedSources = [], onSwitchS
 
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [libraryStatus, setLibraryStatus] = useState('reading')
-  const [progress, setProgress] = useState<any>(null)
+  const [progress, setProgress] = useState<{ chapterId?: string; chapterNumber?: string } | null>(null)
   const [loadingBookmark, setLoadingBookmark] = useState(false)
   
   const activeSourceId = sourceId || getSelectedSource()
@@ -51,18 +50,22 @@ const ContentTop = ({ manga, chapters, sourceId, resolvedSources = [], onSwitchS
         fetch(`/api/user/bookmark/check?mangaId=${manga.id}&sourceId=${activeSourceId}`).then(res => res.json()),
         fetch(`/api/user/progress?mangaId=${manga.id}&sourceId=${activeSourceId}`).then(res => res.json())
       ]).then(([bookmarkRes, progressRes]) => {
-        setIsBookmarked(bookmarkRes.bookmarked)
-        if (bookmarkRes.status) setLibraryStatus(bookmarkRes.status)
-        setProgress(progressRes.data)
+        Promise.resolve().then(() => {
+          setIsBookmarked(bookmarkRes.bookmarked)
+          if (bookmarkRes.status) setLibraryStatus(bookmarkRes.status)
+          setProgress(progressRes.data)
+        })
       }).catch(() => {})
     } else {
       // Check local Redux state
       const local = localBookmarks.find(m => m.id === manga.id && m.source === activeSourceId)
       const hist = localHistory.find(m => m.id === manga.id && m.source === activeSourceId)
       
-      setIsBookmarked(!!local)
-      if (local?.status) setLibraryStatus(local.status)
-      if (hist) setProgress({ chapterId: hist.lastReadChapterId, chapterNumber: hist.lastReadChapter })
+      Promise.resolve().then(() => {
+        setIsBookmarked(!!local)
+        if (local?.status) setLibraryStatus(local.status)
+        if (hist) setProgress({ chapterId: hist.lastReadChapterId, chapterNumber: hist.lastReadChapter })
+      })
     }
   }, [manga.id, activeSourceId, signedIn, localBookmarks, localHistory])
 

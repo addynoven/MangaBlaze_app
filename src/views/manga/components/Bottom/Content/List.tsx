@@ -58,7 +58,7 @@ function Item(props: ItemProps) {
       if (data.baseUrl && hash && files.length) {
         imageUrls = files.map((file: string) => `${data.baseUrl}/data/${hash}/${file}`)
       } else if (Array.isArray(data.pages)) {
-        imageUrls = data.pages.map((p: any) => p.url)
+        imageUrls = data.pages.map((p: { url: string }) => p.url)
       } else if (files.length && typeof files[0] === 'string') {
         imageUrls = files
       }
@@ -82,7 +82,7 @@ function Item(props: ItemProps) {
   return (
     <li className="item" data-number={chapNumber}>
       <div className="d-flex align-items-center justify-content-between w-100 pr-3">
-        <Link href={href} target={target} rel={rel} title={chapNumber} className="flex-grow-1">
+        <Link href={href} target={target} rel={rel} title={chapNumber} className="flex-grow-1 text-decoration-none">
           <span>
             Chapter {chapNumber}: {title} {externalUrl && <span className="badge badge-secondary ml-1" style={{ fontSize: '10px', verticalAlign: 'middle', background: '#343a40', color: '#fff', padding: '2px 4px', borderRadius: '3px' }}>External</span>}
           </span>
@@ -105,7 +105,7 @@ function Item(props: ItemProps) {
 }
 
 const ChapterList = ({ tab, manga, chapters }: ChapterListProps) => {
-  const activeSourceId = (manga as any).sourceId || getSelectedSource()
+  const activeSourceId = (manga as { sourceId?: string }).sourceId || getSelectedSource()
   
   // Only show chapters that are not marked unavailable
   const readableChapters = chapters.filter(

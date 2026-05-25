@@ -30,9 +30,10 @@ export async function monitoredFetch(sourceId: string, url: string) {
     }
     
     return response;
-  } catch (error: any) {
+  } catch (error: unknown) {
     const latency = Date.now() - start;
-    reportSourceHealth(sourceId, false, latency, error.message);
+    const message = error instanceof Error ? error.message : 'Unknown error';
+    reportSourceHealth(sourceId, false, latency, message);
     throw error;
   }
 }

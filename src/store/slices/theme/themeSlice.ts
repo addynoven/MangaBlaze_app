@@ -30,7 +30,7 @@ export type ThemeState = {
   activeTheme: 'light' | 'dark' | 'sepia' | 'oled'
 }
 
-export type HeaderType = {}
+export type HeaderType = Record<string, never>
 
 const initialState: ThemeState = {
   layout: themeConfig.layout,
@@ -67,6 +67,9 @@ export const themeSlice = createSlice({
     },
     setShowMenu: (state, action: PayloadAction<boolean>) => {
       state.isShowMenu = action.payload
+    },
+    toggleShowMenu: (state) => {
+      state.isShowMenu = !state.isShowMenu
     },
     setProgressPosition: (state, action: PayloadAction<ProgressOffsetType>) => {
       state.progressPosition = action.payload
@@ -109,6 +112,7 @@ export const {
   setPreviousLayout,
   setShowHeader,
   setShowMenu,
+  toggleShowMenu,
   setPageType,
   setProgressPosition,
   setReadDirection,

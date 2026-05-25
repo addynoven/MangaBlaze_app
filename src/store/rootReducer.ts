@@ -10,7 +10,7 @@ export type RootState = {
 }
 
 export interface AsyncReducers {
-  [key: string]: Reducer<any, AnyAction>
+  [key: string]: Reducer<object, AnyAction>
 }
 
 const staticReducers = {

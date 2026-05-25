@@ -14,11 +14,19 @@ const Discovery = () => {
       .then(res => res.json())
       .then(res => {
         if (res.data) {
-          const items = res.data.map((m: any): Genre => ({
+          const items = res.data.map((m: { 
+            id: string; 
+            cover?: string; 
+            genres?: string[]; 
+            title?: string; 
+            lastChapter?: string; 
+            year?: number; 
+            source: string 
+          }): Genre => ({
             id: m.id,
             image: m.cover || '/images/placeholder.png',
             type: getMangaType(m.genres),
-            title: m.title,
+            title: m.title || 'Unknown',
             source: m.source,
             chapters: [{
               info: m.lastChapter ? `Chap ${m.lastChapter}` : 'View details',
