@@ -1,0 +1,9 @@
+{
+  "id": "hentaifox",
+  "name": "HentaiFox",
+  "lang": "en",
+  "version": "1.0.0",
+  "baseUrl": "https://hentaifox.com",
+  "type": "scraper",
+  "nsfw": true
+}

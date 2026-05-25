@@ -1,7 +1,10 @@
+'use client'
+
 import { useAppSelector } from '@/store'
 import { fitClassName } from '../../Read'
 import Image from '../Image'
 import classNames from 'classnames'
+import { proxiedImageUrl } from '@/utils/manga'
 
 type DoubleImageProps = {
   index: number
@@ -17,7 +20,7 @@ const DoubleImage = (props: DoubleImageProps) => {
   return (
     <Image
       key={index}
-      src={src}
+      src={proxiedImageUrl(src)}
       number={index + 1}
       wrapperClassName={classNames(
         pageIndex + 4 > index + 1 && 'loaded',

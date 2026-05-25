@@ -149,7 +149,10 @@ const Read = ({ slug, lang = 'en', chapter }: ReadProps) => {
 
     let active = true
     Promise.resolve().then(() => {
-      if (active) setLoading(true)
+      if (active) {
+        setPages([])
+        setLoading(true)
+      }
     })
 
     const start = Date.now()
@@ -184,9 +187,10 @@ const Read = ({ slug, lang = 'en', chapter }: ReadProps) => {
         setLoading(false)
       })
       .catch(() => {
+        if (!active) return
         const latency = Date.now() - start
         reportSourceHealth(sourceId, false, latency, 'Network error')
-        if (active) setLoading(false)
+        setLoading(false)
       })
 
     return () => {

@@ -1,9 +1,12 @@
+'use client'
+
 import classNames from 'classnames'
 import { useRef, useEffect, memo } from 'react'
 import Image from '../Image'
 import { fitClassName } from '../../Read'
 import { useOnScreen } from '@/utils/hooks'
 import { setPageIndex, useAppDispatch, useAppSelector } from '@/store'
+import { proxiedImageUrl } from '@/utils/manga'
 
 type LongStripImageProps = {
   index: number
@@ -39,7 +42,7 @@ const LongStripImage = (props: LongStripImageProps) => {
       id={`page-${index + 1}`}
     >
       <Image
-        src={src}
+        src={proxiedImageUrl(src)}
         number={index + 1}
         wrapperClassName={classNames('loaded d-block')}
         imageClassName={fitClassName[fitType]}
