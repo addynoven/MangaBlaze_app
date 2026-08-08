@@ -40,3 +40,10 @@ replay_pid*.log
 *.jks
 *.keystore
 .idea/
+
+node_modules/
+.env
+target/
+dist/
+build/
+.venv/
