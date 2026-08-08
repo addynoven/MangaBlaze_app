@@ -67,3 +67,9 @@ yarn-error.log*
 # OS
 Thumbs.db
 Desktop.ini
+
+node_modules/
+target/
+dist/
+build/
+.venv/
