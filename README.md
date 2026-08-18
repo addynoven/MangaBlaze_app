@@ -1,6 +1,6 @@
 <div align="center">
 
-**Futon is a free and open-source manga reader for Android with built-in online content sources.**
+**Futon is a clean, fast, and feature-rich manga reader I'm building for Android.**
 
 ![Android 6.0](https://img.shields.io/badge/android-6.0+-brightgreen) [![Sources count](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FKotatsu-Redo%2Fkotatsu-parsers-redo%2Frefs%2Fheads%2Fmaster%2F.github%2Fsummary.yaml&query=total&label=manga%20sources&color=%23E9321C)](https://github.com/Kotatsu-Redo/kotatsu-parsers-redo) [![License](https://img.shields.io/github/license/AppFuton/Futon)](https://github.com/AppFuton/Futon/blob/devel/LICENSE) [![GitHub Release](https://img.shields.io/github/v/release/appfuton/futon?sort=date&display_name=tag&style=flat&link=https%3A%2F%2Fgithub.com%2FAppFuton%2FFuton%2Freleases%2Flatest)](https://github.com/AppFuton/Futon/releases/latest) [![IzzyOnDroid Yearly Downloads](https://img.shields.io/badge/dynamic/json?url=https://dlstats.izzyondroid.org/iod-stats-collector/stats/basic/yearly/rolling.json&query=$.['io.github.landwarderer.mangablaze']&label=IzzyOnDroid%20yearly%20downloads)](https://apt.izzysoft.de/packages/io.github.landwarderer.mangablaze) [![F-Droid Version](https://img.shields.io/badge/F--Droid-%2311AB00.svg?logo=f-droid&logoColor=white)](https://f-droid.org/en/packages/io.github.landwarderer.mangablaze/) [![Open Source Helpers](https://www.codetriage.com/appfuton/futon/badges/users.svg)](https://www.codetriage.com/appfuton/futon) [![Discord](https://img.shields.io/discord/1452862077134700628)
 ](https://discord.gg/9sqBHXhwzz)
@@ -115,7 +115,7 @@ For detailed contribution guidelines, see [CONTRIBUTING.md](./CONTRIBUTING.md).
     height="80">](https://f-droid.org/packages/io.github.landwarderer.mangablaze)
 
 ### Localization
-Help us by translating
+Help translate Futon into your language!
 
 <a href="https://hosted.weblate.org/engage/futon/"><img src="https://hosted.weblate.org/widget/futon/open-graph.png" width="500"></a>
 <a href="https://hosted.weblate.org/engage/futon/"><img src="https://hosted.weblate.org/widget/futon/horizontal-auto.svg" width="500"></a>
@@ -165,20 +165,13 @@ where the content is hosted.
 
 <div align="left">
 
-**Futon is built upon the exceptional work of the [Kotatsu](https://github.com/KotatsuApp/Kotatsu) project.**
+**Futon is built on the foundation of the [Kotatsu](https://github.com/KotatsuApp/Kotatsu) project.**
 
-We are deeply grateful to:
+Big thanks to:
+* **The original Kotatsu developers** for the incredible work on the foundation.
+* **The Kotatsu-Redo community** for keeping the parsers alive.
+* **All the contributors and translators** who made this possible.
 
-* **The original Kotatsu developers** for creating such an outstanding manga reader and making it open source
-* **The Kotatsu community** for their contributions, testing, and support
-* **All translators** who helped localize Kotatsu through [Weblate](https://hosted.weblate.org/engage/kotatsu/)
-* **[Kotatsu-Redo](https://github.com/Kotatsu-Redo/kotatsu-parsers-redo)** for continuing parser development and maintenance
-* **[Kototoro](https://github.com/Kototoro-app/Kototoro)** for the Tachiyomi extension integration guide
-
-This project stands on the shoulders of giants. The Kotatsu team's dedication to creating a feature-rich, user-friendly manga reader has provided an incredible foundation for Futon to build upon.
-
-**Thank you to everyone who contributed to Kotatsu — your work continues to benefit the manga reading community!**
-
-For the original Kotatsu project, please visit: [github.com/KotatsuApp/Kotatsu](https://github.com/KotatsuApp/Kotatsu)
+I'm currently maintaining and improving Futon to make it the best manga reading experience on Android.
 
 </div>
